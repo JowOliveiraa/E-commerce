@@ -1,0 +1,56 @@
+criação de produtos:
+[
+  { "name": "Intel i3 2000", "price": 150.00, "quantity": 10, "category": "PROCESSADOR" },
+  { "name": "Intel i5 2000", "price": 200.00, "quantity": 5, "category": "PROCESSADOR" },
+  { "name": "Intel i7 2000", "price": 250.00, "quantity": 8, "category": "PROCESSADOR" },
+  { "name": "Intel i3 3000", "price": 200.00, "quantity": 3, "category": "PROCESSADOR" },
+  { "name": "Intel i5 3000", "price": 250.00, "quantity": 15, "category": "PROCESSADOR" },
+  { "name": "Intel i7 3000", "price": 300.00, "quantity": 12, "category": "PROCESSADOR" },
+  { "name": "Intel i3 4000", "price": 250.00, "quantity": 7, "category": "PROCESSADOR" },
+  { "name": "Intel i5 4000", "price": 300.00, "quantity": 4, "category": "PROCESSADOR" },
+  { "name": "Intel i7 4000", "price": 300.00, "quantity": 6, "category": "PROCESSADOR" },
+  { "name": "Intel i3 5000", "price": 300.00, "quantity": 9, "category": "PROCESSADOR" },
+  { "name": "Intel i5 5000", "price": 350.00, "quantity": 2, "category": "PROCESSADOR" },
+  { "name": "Intel i7 5000", "price": 400.00, "quantity": 11, "category": "PROCESSADOR" },
+  { "name": "RX 450", "price": 100.00, "quantity": 10, "category": "GPU" },
+  { "name": "RX 460", "price": 130.00, "quantity": 6, "category": "GPU" },
+  { "name": "RX 470", "price": 160.00, "quantity": 5, "category": "GPU" },
+  { "name": "RX 480", "price": 190.00, "quantity": 8, "category": "GPU" },
+  { "name": "RX 490", "price": 210.00, "quantity": 3, "category": "GPU" },
+  { "name": "RX 550", "price": 170.00, "quantity": 9, "category": "GPU" },
+  { "name": "RX 560", "price": 340.00, "quantity": 9, "category": "GPU" },
+  { "name": "RX 570", "price": 220.00, "quantity": 12, "category": "GPU" },
+  { "name": "RX 580", "price": 250.00, "quantity": 7, "category": "GPU" },
+  { "name": "RX 590", "price": 280.00, "quantity": 4, "category": "GPU" },
+  { "name": "Fone de ouvido", "price": 190.00, "quantity": 5, "category": "PERIFERICOS" },
+  { "name": "Mouse gamer", "price": 220.00, "quantity": 8, "category": "PERIFERICOS" },
+  { "name": "Headset", "price": 250.00, "quantity": 3, "category": "PERIFERICOS" },
+  { "name": "Mousepad", "price": 50.00, "quantity": 6, "category": "PERIFERICOS" },
+  { "name": "WebCam Full HD", "price": 310.00, "quantity": 10, "category": "PERIFERICOS" },
+  { "name": "Webcam HD", "price": 200.00, "quantity": 9, "category": "PERIFERICOS" },
+  { "name": "Cabo HDMI", "price": 15.00, "quantity": 9, "category": "PERIFERICOS" }
+]
+
+criação de clientes:
+[
+  {"name": "Alice Smith","cpf": "12345678903","email": "alice.smith@example.com","cellPhone": "123-456-7891"},
+  {"name": "Bob Johnson","cpf": "12345678904","email": "bob.johnson@example.com","cellPhone": "123-456-7892"},
+  {"name": "Eva Williams","cpf": "12345678905","email": "eva.williams@example.com","cellPhone": "123-456-7893"},
+  {"name": "Charlie Davis","cpf": "12345678906","email": "charlie.davis@example.com","cellPhone": "123-456-7894"},
+  {"name": "Grace Miller","cpf": "12345678907","email": "grace.miller@example.com","cellPhone": "123-456-7895"},
+  {"name": "Daniel Wilson","cpf": "12345678908","email": "daniel.wilson@example.com","cellPhone": "123-456-7896"},
+  {"name": "Emma Brown","cpf": "12345678909","email": "emma.brown@example.com","cellPhone": "123-456-7897"},
+  {"name": "Frank Taylor","cpf": "12345678910","email": "frank.taylor@example.com","cellPhone": "123-456-7898"},
+  {"name": "Gina Anderson","cpf": "12345678911","email": "gina.anderson@example.com","cellPhone": "123-456-7899"},
+  {"name": "Henry Martinez","cpf": "12345678912","email": "henry.martinez@example.com","cellPhone": "123-456-7800"},
+  {"name": "Isabel Garcia","cpf": "12345678913","email": "isabel.garcia@example.com","cellPhone": "123-456-7801"},
+  {"name": "Jack Wright","cpf": "12345678914","email": "jack.wright@example.com","cellPhone": "123-456-7802"},
+  {"name": "Karen Lee","cpf": "12345678915","email": "karen.lee@example.com","cellPhone": "123-456-7803"},
+  {"name": "Leo Harris","cpf": "12345678916","email": "leo.harris@example.com","cellPhone": "123-456-7804"},
+  {"name": "Mia Jackson","cpf": "12345678917","email": "mia.jackson@example.com","cellPhone": "123-456-7805"},
+  {"name": "Nathan White","cpf": "12345678918","email": "nathan.white@example.com","cellPhone": "123-456-7806"},
+  {"name": "Olivia Moore","cpf": "12345678919","email": "olivia.moore@example.com","cellPhone": "123-456-7807"},
+  {"name": "Patrick Hall","cpf": "12345678920","email": "patrick.hall@example.com","cellPhone": "123-456-7808"}
+]
+
+
