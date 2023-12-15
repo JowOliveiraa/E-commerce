@@ -7,6 +7,7 @@ import com.shop.repositories.CostumerRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,24 +23,27 @@ public class CostumerService {
     private CostumerRepository repository;
 
     @Transactional
-    public ResponseEntity<Costumer> createCostumer(CostumerDTO dto) {
+    public ResponseEntity<Object> createCostumer(CostumerDTO dto) {
 
         var newCostumer = new Costumer(dto);
         repository.save(newCostumer);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newCostumer);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new CostumerDAO(newCostumer));
     }
 
-    public Page<Costumer> listAllCostumers(Pageable pageable) {
+    public Page<CostumerDAO> listAllCostumers(Pageable pageable) {
 
-        return repository.findAll(pageable);
+        var costumers = repository.findAll(pageable);
+        var costumersPage = costumers.getContent().stream().map(CostumerDAO::new).collect(Collectors.toList());
+        return new PageImpl<>(costumersPage, pageable, costumers.getTotalElements());
     }
 
     @Transactional
-    public ResponseEntity<List<Costumer>> createMultipleCostumers(List<CostumerDTO> dtos) {
+    public ResponseEntity<List<CostumerDAO>> createMultipleCostumers(List<CostumerDTO> dtos) {
 
         var costumers = dtos.stream().map(Costumer::new).collect(Collectors.toList());
         repository.saveAll(costumers);
-        return ResponseEntity.status(HttpStatus.CREATED).body(costumers);
+        var createdCostumers = costumers.stream().map(CostumerDAO::new).collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdCostumers);
     }
 
     @Transactional

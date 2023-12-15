@@ -1,6 +1,7 @@
 package com.shop.models.daos;
 
 import com.shop.models.entities.Costumer;
+import com.shop.models.enums.CostumerStatus;
 
 public record CostumerDAO(
 
@@ -8,7 +9,8 @@ public record CostumerDAO(
         String name,
         String cpf,
         String email,
-        String cellPhone) {
+        String cellPhone,
+        CostumerStatus status) {
 
     public CostumerDAO(Costumer costumer) {
         this(
@@ -16,7 +18,8 @@ public record CostumerDAO(
                 costumer.getName(),
                 costumer.getCpf(),
                 costumer.getEmail(),
-                costumer.getCellPhone()
+                costumer.getCellPhone(),
+                costumer.getStatus()
         );
     }
 }

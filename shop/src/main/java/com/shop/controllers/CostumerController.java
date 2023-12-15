@@ -1,5 +1,6 @@
 package com.shop.controllers;
 
+import com.shop.models.daos.CostumerDAO;
 import com.shop.models.dtos.CostumerDTO;
 import com.shop.models.entities.Costumer;
 import com.shop.services.CostumerService;
@@ -22,17 +23,17 @@ public class CostumerController {
     private CostumerService service;
 
     @PostMapping
-    public ResponseEntity<Costumer> createCostumer(@RequestBody CostumerDTO dto) {
+    public ResponseEntity<Object> createCostumer(@RequestBody CostumerDTO dto) {
         return service.createCostumer(dto);
     }
 
     @GetMapping
-    public Page<Costumer> listAllCostumers(@PageableDefault(page = 0, size = 10, sort = {"name"}) Pageable pageable) {
+    public Page<CostumerDAO> listAllCostumers(@PageableDefault(page = 0, size = 10, sort = {"name"}) Pageable pageable) {
         return service.listAllCostumers(pageable);
     }
 
     @PostMapping("/varios")
-    public ResponseEntity<List<Costumer>> createMultipleCostumers(@RequestBody List<CostumerDTO> dtos) {
+    public ResponseEntity<List<CostumerDAO>> createMultipleCostumers(@RequestBody List<CostumerDTO> dtos) {
         return service.createMultipleCostumers(dtos);
     }
 

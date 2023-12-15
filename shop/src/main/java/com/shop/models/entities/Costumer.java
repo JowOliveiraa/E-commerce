@@ -1,6 +1,7 @@
 package com.shop.models.entities;
 
 import com.shop.models.dtos.CostumerDTO;
+import com.shop.models.enums.CostumerStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,27 +39,27 @@ public class Costumer implements Serializable {
     @Column(length = 20, nullable = false)
     private String cellPhone;
 
+    @Enumerated(EnumType.STRING)
+    private CostumerStatus status;
+
+    @Column(length = 10)
+    private String password;
+
     public Costumer(CostumerDTO dto) {
 
         this.name = dto.name();
         this.cpf = dto.cpf();
         this.email = dto.email();
         this.cellPhone = dto.cellPhone();
+        this.status = CostumerStatus.ATIVO;
     }
 
     public void update(CostumerDTO dto) {
 
-        if (!Objects.equals(dto.name(), this.name)) {
-            this.name = dto.name();
-        }
-        if (!Objects.equals(dto.cpf(), this.cpf)){
-            this.cpf = dto.cpf();
-        }
-        if (!Objects.equals(dto.email(), this.email)) {
-            this.email = dto.email();
-        }
-        if (!Objects.equals(dto.cellPhone(), this.cellPhone)) {
-            this.cellPhone = dto.cellPhone();
-        }
+        if (!Objects.equals(dto.name(), this.name)) this.name = dto.name();
+        if (!Objects.equals(dto.cpf(), this.cpf)) this.cpf = dto.cpf();
+        if (!Objects.equals(dto.email(), this.email)) this.email = dto.email();
+        if (!Objects.equals(dto.cellPhone(), this.cellPhone)) this.cellPhone = dto.cellPhone();
+        if (!Objects.equals(dto.status(), this.status)) this.status = dto.status();
     }
 }
