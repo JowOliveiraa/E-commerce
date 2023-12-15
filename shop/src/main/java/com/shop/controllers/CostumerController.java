@@ -3,6 +3,7 @@ package com.shop.controllers;
 import com.shop.models.daos.CostumerDAO;
 import com.shop.models.dtos.CostumerDTO;
 import com.shop.models.entities.Costumer;
+import com.shop.models.enums.CostumerStatus;
 import com.shop.services.CostumerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -55,5 +56,11 @@ public class CostumerController {
     @GetMapping("/validate-cpf")
     public ResponseEntity<Object> validateCpf(@RequestParam String cpf) {
         return service.validateCpf(cpf);
+    }
+
+    @GetMapping("/status")
+    public Page<CostumerDAO> listActiveAndInactiveCostumers(@PageableDefault(size = 10, page = 0, sort = {"name"}) Pageable pageable,
+                                                            @RequestParam CostumerStatus status) {
+        return service.listActiveAndInactiveCostumers(pageable, status);
     }
 }

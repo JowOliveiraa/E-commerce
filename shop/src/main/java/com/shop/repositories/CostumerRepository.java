@@ -1,6 +1,7 @@
 package com.shop.repositories;
 
 import com.shop.models.entities.Costumer;
+import com.shop.models.enums.CostumerStatus;
 import com.shop.services.CostumerService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,4 +16,5 @@ public interface CostumerRepository extends JpaRepository<Costumer, Long> {
 
     Object getReferenceByCpf(String cpf);
 
+    Page<Costumer> findByStatus(Pageable pageable, CostumerStatus status);
 }

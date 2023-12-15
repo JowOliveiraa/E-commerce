@@ -3,6 +3,7 @@ package com.shop.services;
 import com.shop.models.daos.CostumerDAO;
 import com.shop.models.dtos.CostumerDTO;
 import com.shop.models.entities.Costumer;
+import com.shop.models.enums.CostumerStatus;
 import com.shop.repositories.CostumerRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,11 +83,19 @@ public class CostumerService {
     }
 
     public ResponseEntity<Object> validateCpf(String cpf) {
+
         if (repository.existsByCpf(cpf)) {
             var costumerCpf = new CostumerDAO((Costumer) repository.getReferenceByCpf(cpf));
             return ResponseEntity.status(HttpStatus.CONFLICT).body("CPF ja cadastrado no sistema para "+ costumerCpf.name());
         } else {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("CPF disponível.");
         }
+    }
+
+    public Page<CostumerDAO> listActiveAndInactiveCostumers(Pageable pageable, CostumerStatus status) {
+
+        var costumers = repository.findByStatus(pageable, status);
+        var costumersPage = costumers.getContent().stream().map(CostumerDAO::new).collect(Collectors.toList());
+        return new PageImpl<>(costumersPage, pageable, costumers.getTotalElements());
     }
 }
