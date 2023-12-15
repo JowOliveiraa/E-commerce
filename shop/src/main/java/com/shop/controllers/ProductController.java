@@ -48,4 +48,9 @@ public class ProductController {
     public Page<Product> listAvailableProducts(@PageableDefault(size = 10, page = 0) Pageable pageable) {
         return service.listAvailableProducts(pageable);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getProductById(@PathVariable Long id) {
+        return service.getProductById(id);
+    }
 }

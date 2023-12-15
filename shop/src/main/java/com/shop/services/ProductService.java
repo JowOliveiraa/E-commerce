@@ -72,4 +72,14 @@ public class ProductService {
 
         return repository.findByAvailable(pageable);
     }
+
+    public ResponseEntity<Object> getProductById(Long id) {
+
+        if (repository.existsById(id)) {
+            var product = repository.getReferenceById(id);
+            return ResponseEntity.status(HttpStatus.OK).body(new ProductDAO(product));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado ou esgotado.");
+        }
+    }
 }
