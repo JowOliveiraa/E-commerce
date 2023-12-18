@@ -92,10 +92,20 @@ public class CostumerService {
         }
     }
 
-    public Page<CostumerDAO> listActiveAndInactiveCostumers(Pageable pageable, CostumerStatus status) {
+    public Page<CostumerDAO> search(Pageable pageable, String search, String status) {
 
-        var costumers = repository.findByStatus(pageable, status);
-        var costumersPage = costumers.getContent().stream().map(CostumerDAO::new).collect(Collectors.toList());
-        return new PageImpl<>(costumersPage, pageable, costumers.getTotalElements());
+        Page<Costumer> costumers;
+        List<CostumerDAO> pagedCostumers;
+
+        if (status == null) {
+            costumers = repository.findAll(pageable);
+            pagedCostumers = costumers.stream().map(CostumerDAO::new).collect(Collectors.toList());
+
+        } else {
+            costumers = repository.search(pageable, search, status);
+            pagedCostumers = costumers.getContent().stream().map(CostumerDAO::new).collect(Collectors.toList());
+        }
+
+        return new PageImpl<>(pagedCostumers, pageable, costumers.getTotalElements());
     }
 }

@@ -28,11 +28,6 @@ public class CostumerController {
         return service.createCostumer(dto);
     }
 
-    @GetMapping
-    public Page<CostumerDAO> listAllCostumers(@PageableDefault(page = 0, size = 10, sort = {"name"}) Pageable pageable) {
-        return service.listAllCostumers(pageable);
-    }
-
     @PostMapping("/varios")
     public ResponseEntity<List<CostumerDAO>> createMultipleCostumers(@RequestBody List<CostumerDTO> dtos) {
         return service.createMultipleCostumers(dtos);
@@ -58,9 +53,10 @@ public class CostumerController {
         return service.validateCpf(cpf);
     }
 
-    @GetMapping("/status")
-    public Page<CostumerDAO> listActiveAndInactiveCostumers(@PageableDefault(size = 10, page = 0, sort = {"name"}) Pageable pageable,
-                                                            @RequestParam CostumerStatus status) {
-        return service.listActiveAndInactiveCostumers(pageable, status);
+    @GetMapping
+    public Page<CostumerDAO> listCostumers(@PageableDefault(size = 10, page = 0, sort = {"name"}) Pageable pageable,
+                                 @RequestParam(required = false, defaultValue = "") String search,
+                                 @RequestParam(required = false) String status) {
+        return service.search(pageable, search, status);
     }
 }

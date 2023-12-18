@@ -16,5 +16,6 @@ public interface CostumerRepository extends JpaRepository<Costumer, Long> {
 
     Object getReferenceByCpf(String cpf);
 
-    Page<Costumer> findByStatus(Pageable pageable, CostumerStatus status);
+    @Query(value = "SELECT * FROM Costumers WHERE status=:status AND (name LIKE %:search% OR cpf LIKE %:search%)", nativeQuery = true)
+    Page<Costumer> search(Pageable pageable, @Param("search") String search, @Param("status") String status);
 }
