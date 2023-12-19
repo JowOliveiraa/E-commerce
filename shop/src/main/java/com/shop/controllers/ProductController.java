@@ -1,5 +1,6 @@
 package com.shop.controllers;
 
+import com.shop.models.daos.ProductDAO;
 import com.shop.models.dtos.ProductDTO;
 import com.shop.models.entities.Product;
 import com.shop.services.ProductService;
@@ -10,6 +11,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -29,9 +31,12 @@ public class ProductController {
         return service.createMultipleProducts(dtos);
     }
 
-    @GetMapping("/listar-tudo")
-    public Page<Product> listAllProducts(@PageableDefault(size = 10, page = 0)Pageable pageable) {
-        return service.listAllProducts(pageable);
+    @GetMapping
+    public Page<ProductDAO> listProducts(@PageableDefault(size = 10, page = 0)Pageable pageable,
+                                         @RequestParam(required = false, defaultValue = "true") Boolean onlyAvailable,
+                                         @RequestParam(required = false) String name,
+                                         @RequestParam(required = false) String category) {
+        return service.search(pageable, onlyAvailable, name, category);
     }
 
     @DeleteMapping("/{id}")
@@ -42,11 +47,6 @@ public class ProductController {
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateProduct(@PathVariable Long id, @RequestBody ProductDTO dto) {
         return service.updateProduct(id, dto);
-    }
-
-    @GetMapping
-    public Page<Product> listAvailableProducts(@PageableDefault(size = 10, page = 0) Pageable pageable) {
-        return service.listAvailableProducts(pageable);
     }
 
     @GetMapping("/{id}")

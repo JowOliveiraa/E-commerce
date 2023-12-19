@@ -2,18 +2,18 @@ package com.shop.services;
 
 import com.shop.models.daos.ProductDAO;
 import com.shop.models.dtos.ProductDTO;
-import com.shop.models.entities.Costumer;
 import com.shop.models.entities.Product;
 import com.shop.repositories.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,9 +39,19 @@ public class ProductService {
         return ResponseEntity.status(HttpStatus.CREATED).body(products);
     }
 
-    public Page<Product> listAllProducts(Pageable pageable) {
+    public Page<ProductDAO> search(Pageable pageable, Boolean onlyAvailable, String name, String category) {
 
-        return repository.findAll(pageable);
+        Page<Product> products = null;
+        List<ProductDAO> pagedProducts = null;
+        
+        if (!onlyAvailable) {
+            products = repository.findAll(pageable);
+            pagedProducts = products.stream().map(ProductDAO::new).collect(Collectors.toList());
+        } else {
+            products = repository.findByAvailable(pageable);
+            pagedProducts = products.getContent().stream().map(ProductDAO::new).collect(Collectors.toList());
+        }
+        return new PageImpl<>(pagedProducts, pageable, products.getTotalElements());
     }
 
     @Transactional
