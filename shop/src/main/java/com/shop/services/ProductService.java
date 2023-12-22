@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,13 +45,22 @@ public class ProductService {
         Page<Product> products = null;
         List<ProductDAO> pagedProducts = null;
         
-        if (!onlyAvailable) {
-            products = repository.findAll(pageable);
-            pagedProducts = products.stream().map(ProductDAO::new).collect(Collectors.toList());
+        if (onlyAvailable) {
+
+            if (Objects.isNull(name) && Objects.isNull(category)) products = repository.findByAvailable(pageable);
+            if (!Objects.isNull(name) && Objects.isNull(category)) products = repository.findByAvailableNames(pageable, name);
+            if (!Objects.isNull(name) && !Objects.isNull(category)) products = repository.findByAvailableNamesAndCategories(pageable, name, category);
+            if (Objects.isNull(name) && !Objects.isNull(category)) products = repository.findByAvailableCategory(pageable, category);
+
         } else {
-            products = repository.findByAvailable(pageable);
-            pagedProducts = products.getContent().stream().map(ProductDAO::new).collect(Collectors.toList());
+
+            if (Objects.isNull(name) && Objects.isNull(category)) products = repository.findAll(pageable);
+            if (!Objects.isNull(name) && Objects.isNull(category)) products = repository.findByNotAvailableNames(pageable, name);
+            if (!Objects.isNull(name) && !Objects.isNull(category)) products = repository.findByNotAvailableNamesAndCategories(pageable, name, category);
+            if (Objects.isNull(name) && !Objects.isNull(category)) products = repository.findByNotAvailableCategory(pageable, category);
+
         }
+        pagedProducts = products.getContent().stream().map(ProductDAO::new).collect(Collectors.toList());
         return new PageImpl<>(pagedProducts, pageable, products.getTotalElements());
     }
 
