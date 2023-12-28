@@ -27,7 +27,7 @@ public class ProductController {
     }
 
     @PostMapping("/varios")
-    public ResponseEntity<List<Product>> createMultipleProducts(@RequestBody List<ProductDTO> dtos) {
+    public ResponseEntity<List<ProductDAO>> createMultipleProducts(@RequestBody List<ProductDTO> dtos) {
         return service.createMultipleProducts(dtos);
     }
 

@@ -37,6 +37,12 @@ public class Product implements Serializable {
     @Column(nullable = false)
     private Integer quantity;
 
+
+    private Integer numberOfSales;
+
+    @Column(nullable = false)
+    private Long sellerId;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 30)
     private Category category;
@@ -45,7 +51,9 @@ public class Product implements Serializable {
         this.name = dto.name();
         this.price = dto.price();
         this.quantity = dto.quantity();
+        this.sellerId = dto.sellerId();
         this.category = dto.category();
+        this.numberOfSales = 0;
     }
 
     public void update(ProductDTO dto) {
@@ -54,4 +62,6 @@ public class Product implements Serializable {
         if (!Objects.equals(dto.quantity(), this.quantity)) this.quantity = dto.quantity();
         if (!Objects.equals(dto.category(), this.category)) this.category = dto.category();
     }
+
+
 }

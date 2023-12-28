@@ -29,15 +29,16 @@ public class ProductService {
 
         var product = new Product(dto);
         repository.save(product);
-        return ResponseEntity.status(HttpStatus.CREATED).body(product);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ProductDAO(product));
     }
 
     @Transactional
-    public ResponseEntity<List<Product>> createMultipleProducts(List<ProductDTO> dtos) {
+    public ResponseEntity<List<ProductDAO>> createMultipleProducts(List<ProductDTO> dtos) {
 
         var products = dtos.stream().map(Product::new).collect(Collectors.toList());
         repository.saveAll(products);
-        return ResponseEntity.status(HttpStatus.CREATED).body(products);
+        var createdProducts = products.stream().map(ProductDAO::new).collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdProducts);
     }
 
     public Page<ProductDAO> search(Pageable pageable, Boolean onlyAvailable, String name, String category) {

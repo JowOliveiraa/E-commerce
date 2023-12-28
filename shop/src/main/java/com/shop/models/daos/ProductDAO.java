@@ -10,6 +10,8 @@ public record ProductDAO(
         String name,
         BigDecimal price,
         Integer quantity,
+        Integer numberOfSales,
+        Long seller,
         Category category
 ) {
     public ProductDAO(Product product) {
@@ -18,6 +20,8 @@ public record ProductDAO(
                 product.getName(),
                 product.getPrice(),
                 product.getQuantity(),
+                product.getNumberOfSales(),
+                product.getSellerId(),
                 product.getCategory()
         );
     }
