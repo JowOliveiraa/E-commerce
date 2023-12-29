@@ -48,6 +48,7 @@ public class Product implements Serializable {
     private Category category;
 
     public Product(ProductDTO dto) {
+
         this.name = dto.name();
         this.price = dto.price();
         this.quantity = dto.quantity();
@@ -57,6 +58,7 @@ public class Product implements Serializable {
     }
 
     public void update(ProductDTO dto) {
+
         if (!Objects.equals(dto.name(), this.name)) this.name = dto.name();
         if (!Objects.equals(dto.price(), this.price)) this.price = dto.price();
         if (!Objects.equals(dto.quantity(), this.quantity)) this.quantity = dto.quantity();

@@ -3,7 +3,6 @@ package com.shop.services;
 import com.shop.models.daos.CostumerDAO;
 import com.shop.models.dtos.CostumerDTO;
 import com.shop.models.entities.Costumer;
-import com.shop.models.enums.CostumerStatus;
 import com.shop.repositories.CostumerRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

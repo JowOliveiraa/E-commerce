@@ -2,8 +2,6 @@ package com.shop.controllers;
 
 import com.shop.models.daos.CostumerDAO;
 import com.shop.models.dtos.CostumerDTO;
-import com.shop.models.entities.Costumer;
-import com.shop.models.enums.CostumerStatus;
 import com.shop.services.CostumerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController

@@ -1,6 +1,6 @@
 package com.shop.models.enums;
 
-public enum CostumerStatus {
+public enum UserStatus {
     ATIVO,
     INATIVO
 }

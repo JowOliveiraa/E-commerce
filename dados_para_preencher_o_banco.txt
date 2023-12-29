@@ -53,4 +53,28 @@ criação de clientes:
   {"name": "Patrick Hall","cpf": "12345678920","email": "patrick.hall@example.com","cellPhone": "123-456-7808"}
 ]
 
+criação de vendedores:
+[
+  {"name": "Vendedor 1", "cpf": "12345678901", "email": "vendedor1@example.com", "cellPhone": "1234567890"}
+  {"name": "Vendedor 2", "cpf": "23456789012", "email": "vendedor2@example.com", "cellPhone": "2345678901"}
+  {"name": "Vendedor 3", "cpf": "34567890123", "email": "vendedor3@example.com", "cellPhone": "3456789012"}
+  {"name": "Vendedor 4", "cpf": "45678901234", "email": "vendedor4@example.com", "cellPhone": "4567890123"}
+  {"name": "Vendedor 5", "cpf": "56789012345", "email": "vendedor5@example.com", "cellPhone": "5678901234"}
+  {"name": "Vendedor 6", "cpf": "67890123456", "email": "vendedor6@example.com", "cellPhone": "6789012345"}
+  {"name": "Vendedor 7", "cpf": "78901234567", "email": "vendedor7@example.com", "cellPhone": "7890123456"}
+  {"name": "Vendedor 8", "cpf": "89012345678", "email": "vendedor8@example.com", "cellPhone": "8901234567"}
+  {"name": "Vendedor 9", "cpf": "90123456789", "email": "vendedor9@example.com", "cellPhone": "9012345678"}
+  {"name": "Vendedor 10", "cpf": "01234567890", "email": "vendedor10@example.com", "cellPhone": "0123456789"}
+  {"name": "Vendedor 11", "cpf": "09876543210", "email": "vendedor11@example.com", "cellPhone": "0987654321"}
+  {"name": "Vendedor 12", "cpf": "98765432109", "email": "vendedor12@example.com", "cellPhone": "9876543210"}
+  {"name": "Vendedor 13", "cpf": "87654321098", "email": "vendedor13@example.com", "cellPhone": "8765432109"}
+  {"name": "Vendedor 14", "cpf": "76543210987", "email": "vendedor14@example.com", "cellPhone": "7654321098"}
+  {"name": "Vendedor 15", "cpf": "65432109876", "email": "vendedor15@example.com", "cellPhone": "6543210987"}
+  {"name": "Vendedor 16", "cpf": "54321098765", "email": "vendedor16@example.com", "cellPhone": "5432109876"}
+  {"name": "Vendedor 17", "cpf": "43210987654", "email": "vendedor17@example.com", "cellPhone": "4321098765"}
+  {"name": "Vendedor 18", "cpf": "32109876543", "email": "vendedor18@example.com", "cellPhone": "3210987654"}
+  {"name": "Vendedor 19", "cpf": "21098765432", "email": "vendedor19@example.com", "cellPhone": "2109876543"}
+  {"name": "Vendedor 20", "cpf": "10987654321", "email": "vendedor20@example.com", "cellPhone": "1098765432"}
+]
+
 

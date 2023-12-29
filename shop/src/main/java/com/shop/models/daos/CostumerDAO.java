@@ -1,7 +1,8 @@
 package com.shop.models.daos;
 
 import com.shop.models.entities.Costumer;
-import com.shop.models.enums.CostumerStatus;
+import com.shop.models.enums.Role;
+import com.shop.models.enums.UserStatus;
 
 public record CostumerDAO(
 
@@ -10,7 +11,9 @@ public record CostumerDAO(
         String cpf,
         String email,
         String cellPhone,
-        CostumerStatus status) {
+        Integer quantityOfPurchases,
+        UserStatus status,
+        Role role) {
 
     public CostumerDAO(Costumer costumer) {
         this(
@@ -19,7 +22,9 @@ public record CostumerDAO(
                 costumer.getCpf(),
                 costumer.getEmail(),
                 costumer.getCellPhone(),
-                costumer.getStatus()
+                costumer.getQuantityOfPurchases(),
+                costumer.getStatus(),
+                costumer.getRole()
         );
     }
 }

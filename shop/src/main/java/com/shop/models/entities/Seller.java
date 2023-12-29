@@ -1,25 +1,24 @@
 package com.shop.models.entities;
 
-import com.shop.models.dtos.CostumerDTO;
+import com.shop.models.dtos.SellerDTO;
 import com.shop.models.enums.UserStatus;
 import com.shop.models.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
+
 @Entity
-@Table(name = "Costumers")
-@AllArgsConstructor
-@NoArgsConstructor
+@Table(name = "Sellers")
 @Getter
-@Setter
-public class Costumer implements Serializable {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Seller implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -40,30 +39,30 @@ public class Costumer implements Serializable {
     @Column(length = 20, nullable = false)
     private String cellPhone;
 
-    public Integer quantityOfPurchases;
-
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
     @Column(length = 10)
     private String password;
 
+    private Integer numberOfSales;
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public Costumer(CostumerDTO dto) {
+    public Seller(SellerDTO dto) {
 
         this.name = dto.name();
         this.cpf = dto.cpf();
         this.email = dto.email();
         this.cellPhone = dto.cellPhone();
-        this.quantityOfPurchases = 0;
         this.status = UserStatus.ATIVO;
-        this.role = Role.CLIENTE;
+        this.numberOfSales = 0;
+        this.role = Role.VENDEDOR;
     }
 
-    public void update(CostumerDTO dto) {
+    public void update(SellerDTO dto) {
 
         if (!Objects.equals(dto.name(), this.name)) this.name = dto.name();
         if (!Objects.equals(dto.cpf(), this.cpf)) this.cpf = dto.cpf();
@@ -76,4 +75,5 @@ public class Costumer implements Serializable {
 
         this.password = password;
     }
+
 }
