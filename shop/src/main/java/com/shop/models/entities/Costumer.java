@@ -69,11 +69,20 @@ public class Costumer implements Serializable {
         if (!Objects.equals(dto.cpf(), this.cpf)) this.cpf = dto.cpf();
         if (!Objects.equals(dto.email(), this.email)) this.email = dto.email();
         if (!Objects.equals(dto.cellPhone(), this.cellPhone)) this.cellPhone = dto.cellPhone();
-        if (!Objects.equals(dto.status(), this.status)) this.status = dto.status();
     }
 
     public void updatePassword(String password) {
 
         this.password = password;
+    }
+
+    public void inactive() {
+
+        this.status = UserStatus.INATIVO;
+    }
+
+    public void active() {
+
+        this.status = UserStatus.ATIVO;
     }
 }

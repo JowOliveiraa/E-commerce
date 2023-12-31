@@ -40,9 +40,14 @@ public class CostumerController {
         return service.getById(id);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteCostumer(@PathVariable Long id) {
-        return service.deleteCostumer(id);
+    @DeleteMapping("/status/{id}")
+    public ResponseEntity<String> inactiveCostumer(@PathVariable Long id) {
+        return service.inactiveCostumer(id);
+    }
+
+    @PutMapping("/status/{id}")
+    public ResponseEntity<String> activeCostumer(@PathVariable Long id) {
+        return service.activeCostumer(id);
     }
 
     @GetMapping("/validate-cpf")
@@ -56,4 +61,5 @@ public class CostumerController {
                                  @RequestParam(required = false) String status) {
         return service.search(pageable, search, status);
     }
+
 }

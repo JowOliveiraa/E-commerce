@@ -71,14 +71,11 @@ public class CostumerService {
     }
 
     @Transactional
-    public ResponseEntity<String> deleteCostumer(Long id) {
+    public ResponseEntity<String> inactiveCostumer(Long id) {
 
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
-            return ResponseEntity.status(HttpStatus.OK).body("Deletado com sucesso!");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado!");
-        }
+            var costumer = repository.getReferenceById(id);
+            costumer.inactive();
+            return ResponseEntity.status(HttpStatus.OK).body("Cliente inativado!");
     }
 
     public ResponseEntity<Object> validateCpf(String cpf) {
@@ -106,5 +103,13 @@ public class CostumerService {
         }
 
         return new PageImpl<>(pagedCostumers, pageable, costumers.getTotalElements());
+    }
+
+    @Transactional
+    public ResponseEntity<String> activeCostumer(Long id) {
+
+        var costumer = repository.getReferenceById(id);
+        costumer.active();
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Cliente ativado!");
     }
 }

@@ -5,6 +5,8 @@ import com.shop.models.entities.Seller;
 import com.shop.models.enums.Role;
 import com.shop.models.enums.UserStatus;
 
+import java.util.Optional;
+
 public record SellerDAO(
 
         Long id,
