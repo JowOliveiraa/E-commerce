@@ -50,11 +50,14 @@ public class CostumerService {
     public ResponseEntity<Object> updateCostumer(Long id, CostumerDTO dto) {
 
         if (repository.existsById(id)) {
+
             var costumer = repository.getReferenceById(id);
             costumer.update(dto);
             var updatedCostumer = repository.getReferenceById(id);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(new CostumerDAO(updatedCostumer));
+
         } else {
+
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado!");
         }
     }
@@ -62,9 +65,12 @@ public class CostumerService {
     public ResponseEntity<Object> getById(Long id) {
 
         if (repository.existsById(id)) {
+
             var costumer = repository.getReferenceById(id);
             return ResponseEntity.status(HttpStatus.OK).body(new CostumerDAO(costumer));
+
         } else {
+
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado!");
         }
 
@@ -81,9 +87,12 @@ public class CostumerService {
     public ResponseEntity<Object> validateCpf(String cpf) {
 
         if (repository.existsByCpf(cpf)) {
+
             var costumerCpf = new CostumerDAO((Costumer) repository.getReferenceByCpf(cpf));
             return ResponseEntity.status(HttpStatus.CONFLICT).body("CPF ja cadastrado no sistema para "+ costumerCpf.name());
+
         } else {
+
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("CPF disponível.");
         }
     }
@@ -94,10 +103,12 @@ public class CostumerService {
         List<CostumerDAO> pagedCostumers;
 
         if (status == null) {
+
             costumers = repository.findAll(pageable);
             pagedCostumers = costumers.stream().map(CostumerDAO::new).collect(Collectors.toList());
 
         } else {
+
             costumers = repository.search(pageable, search, status);
             pagedCostumers = costumers.getContent().stream().map(CostumerDAO::new).collect(Collectors.toList());
         }

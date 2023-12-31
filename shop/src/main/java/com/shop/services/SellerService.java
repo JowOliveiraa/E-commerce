@@ -84,8 +84,14 @@ public class SellerService {
         if (status == null) {
 
             sellers = repository.findAll(pageable);
+            pagedSellers = sellers.stream().map(SellerDAO::new).collect(Collectors.toList());
+
+        } else {
+
+            sellers = repository.search(pageable, search, status);
             pagedSellers = sellers.getContent().stream().map(SellerDAO::new).collect(Collectors.toList());
         }
+
         return new PageImpl<>(pagedSellers, pageable, sellers.getTotalElements());
     }
 }
