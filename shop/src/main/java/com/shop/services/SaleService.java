@@ -4,6 +4,7 @@ import com.shop.models.daos.SaleDAO;
 import com.shop.models.dtos.SaleDTO;
 import com.shop.models.orms.Sale;
 import com.shop.repositories.SaleRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -22,6 +24,7 @@ public class SaleService {
     @Autowired
     private SaleRepository repository;
 
+    @Transactional
     public ResponseEntity<SaleDAO> createSale(SaleDTO dto) {
 
         var sale = new Sale(dto);
@@ -41,5 +44,26 @@ public class SaleService {
 
         pagedSales = sales.getContent().stream().map(SaleDAO::new).collect(Collectors.toList());
         return new PageImpl<>(pagedSales, pageable, sales.getTotalElements());
+    }
+
+    public ResponseEntity<Object> getSaleById(Long id) {
+
+        if (repository.existsById(id)) {
+
+            var sale = repository.getReferenceById(id);
+            return ResponseEntity.status(HttpStatus.OK).body(new SaleDAO(sale));
+        } else {
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Venda não encontrada!");
+        }
+
+    }
+
+    public ResponseEntity<List<SaleDAO>> createMultipleSales(List<SaleDTO> dtos) {
+
+        var sales = dtos.stream().map(Sale::new).collect(Collectors.toList());
+        repository.saveAll(sales);
+        var saleList = sales.stream().map(SaleDAO::new).collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.CREATED).body(saleList);
     }
 }

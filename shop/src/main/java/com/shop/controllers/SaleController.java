@@ -11,6 +11,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/vendas")
 public class SaleController {
@@ -23,10 +25,20 @@ public class SaleController {
         return service.createSale(dto);
     }
 
+    @PostMapping("/varios")
+    public ResponseEntity<List<SaleDAO>> createMultipleSales(@RequestBody List<SaleDTO> dtos) {
+        return service.createMultipleSales(dtos);
+    }
+
     @GetMapping
     public Page<SaleDAO> listALLSales(@PageableDefault(size = 10,page = 0)Pageable pageable,
                                       @RequestParam(required = false) Long costumerId,
                                       @RequestParam(required = false) Long sellerId) {
         return service.search(pageable, costumerId, sellerId);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getSaleById(@PathVariable Long id) {
+        return service.getSaleById(id);
     }
 }
