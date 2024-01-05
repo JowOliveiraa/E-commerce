@@ -84,4 +84,9 @@ public class Seller implements Serializable {
 
         this.status =UserStatus.ATIVO;
     }
+
+    public void addSale() {
+
+        this.numberOfSales += 1;
+    }
 }

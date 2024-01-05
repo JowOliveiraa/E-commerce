@@ -13,7 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -24,10 +24,24 @@ public class SaleService {
     @Autowired
     private SaleRepository repository;
 
+    @Autowired
+    private ProductService productService;
+
+    @Autowired
+    private SellerService sellerService;
+
+    @Autowired
+    private CostumerService costumerService;
+
     @Transactional
     public ResponseEntity<SaleDAO> createSale(SaleDTO dto) {
 
         var sale = new Sale(dto);
+
+        dto.productsId().forEach(productId -> productService.removeQuantity(productId));
+        sellerService.addSale(dto.sellerId());
+        costumerService.addPurchase(dto.costumerId());
+
         repository.save(sale);
         return ResponseEntity.status(HttpStatus.CREATED).body(new SaleDAO(sale));
     }
@@ -59,6 +73,7 @@ public class SaleService {
 
     }
 
+    @Transactional
     public ResponseEntity<List<SaleDAO>> createMultipleSales(List<SaleDTO> dtos) {
 
         var sales = dtos.stream().map(Sale::new).collect(Collectors.toList());

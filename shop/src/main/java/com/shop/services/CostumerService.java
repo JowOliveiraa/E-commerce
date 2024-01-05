@@ -123,4 +123,10 @@ public class CostumerService {
         costumer.active();
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Cliente ativado!");
     }
+
+    public void addPurchase(Long id) {
+
+        var costumer = repository.getReferenceById(id);
+        costumer.addPurchase();
+    }
 }

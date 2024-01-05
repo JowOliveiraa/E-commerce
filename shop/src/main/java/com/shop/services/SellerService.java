@@ -94,4 +94,10 @@ public class SellerService {
 
         return new PageImpl<>(pagedSellers, pageable, sellers.getTotalElements());
     }
+
+    public void addSale(Long id) {
+
+        var seller = repository.getReferenceById(id);
+        seller.addSale();
+    }
 }

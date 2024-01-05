@@ -85,4 +85,9 @@ public class Costumer implements Serializable {
 
         this.status = UserStatus.ATIVO;
     }
+
+    public void addPurchase() {
+
+        this.quantityOfPurchases += 1;
+    }
 }

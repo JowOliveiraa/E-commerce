@@ -77,4 +77,29 @@ criação de vendedores:
   {"name": "Vendedor 20", "cpf": "10987654321", "email": "vendedor20@example.com", "cellPhone": "1098765432"}
 ]
 
+criação de vendas:
+[
+  {"costumerId":2,"sellerId":10,"productsQuantity":2,"productsId":[5,6],"price":100.00},
+  {"costumerId":15,"sellerId":3,"productsQuantity":3,"productsId":[8,12,18],"price":75.50},
+  {"costumerId":8,"sellerId":7,"productsQuantity":1,"productsId":[29],"price":45.99},
+  {"costumerId":23,"sellerId":16,"productsQuantity":4,"productsId":[3,14,21,25],"price":120.25},
+  {"costumerId":12,"sellerId":20,"productsQuantity":2,"productsId":[10,26],"price":88.70},
+  {"costumerId":5,"sellerId":5,"productsQuantity":3,"productsId":[13,22,28],"price":64.80},
+  {"costumerId":18,"sellerId":11,"productsQuantity":1,"productsId":[19],"price":33.25},
+  {"costumerId":9,"sellerId":8,"productsQuantity":5,"productsId":[7,11,16,23,30],"price":97.90},
+  {"costumerId":1,"sellerId":14,"productsQuantity":2,"productsId":[15,27],"price":52.60},
+  {"costumerId":20,"sellerId":1,"productsQuantity":3,"productsId":[4,9,17],"price":110.00},
+  {"costumerId":17,"sellerId":18,"productsQuantity":1,"productsId":[24],"price":15.75},
+  {"costumerId":22,"sellerId":2,"productsQuantity":4,"productsId":[6,20,29,30],"price":85.40},
+  {"costumerId":14,"sellerId":19,"productsQuantity":2,"productsId":[2,5],"price":40.00},
+  {"costumerId":11,"sellerId":13,"productsQuantity":1,"productsId":[1],"price":25.90},
+  {"costumerId":3,"sellerId":12,"productsQuantity":3,"productsId":[3,14,21],"price":78.20},
+  {"costumerId":24,"sellerId":17,"productsQuantity":2,"productsId":[8,12],"price":60.75},
+  {"costumerId":6,"sellerId":9,"productsQuantity":1,"productsId":[15],"price":30.40},
+  {"costumerId":19,"sellerId":4,"productsQuantity":4,"productsId":[7,11,16,23],"price":93.10},
+  {"costumerId":10,"sellerId":6,"productsQuantity":2,"productsId":[19,26],"price":70.50},
+  {"costumerId":13,"sellerId":15,"productsQuantity":3,"productsId":[10,22,28],"price":55.80}
+]
+
+
 

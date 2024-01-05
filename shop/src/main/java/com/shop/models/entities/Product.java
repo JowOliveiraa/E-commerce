@@ -66,4 +66,8 @@ public class Product implements Serializable {
     }
 
 
+    public void removeQuantity() {
+
+        this.quantity -= 1;
+    }
 }

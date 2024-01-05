@@ -103,4 +103,11 @@ public class ProductService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado ou esgotado.");
         }
     }
+
+    public void removeQuantity(Long id) {
+
+        var product = repository.getReferenceById(id);
+        product.removeQuantity();
+
+    }
 }
