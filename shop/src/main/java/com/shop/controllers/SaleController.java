@@ -32,9 +32,9 @@ public class SaleController {
 
     @GetMapping
     public Page<SaleDAO> listALLSales(@PageableDefault(size = 10,page = 0)Pageable pageable,
-                                      @RequestParam(required = false) Long costumerId,
+                                      @RequestParam(required = false) Long customerId,
                                       @RequestParam(required = false) Long sellerId) {
-        return service.search(pageable, costumerId, sellerId);
+        return service.search(pageable, customerId, sellerId);
     }
 
     @GetMapping("/{id}")

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 public record SaleDTO(
-        Long costumerId,
+        Long customerId,
         Long sellerId,
         Integer productsQuantity,
         Set<Long> productsId,

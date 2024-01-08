@@ -1,9 +1,6 @@
 package com.shop.models.orms;
 
 import com.shop.models.dtos.SaleDTO;
-import com.shop.models.entities.Costumer;
-import com.shop.models.entities.Product;
-import com.shop.models.entities.Seller;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,12 +9,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -35,7 +27,7 @@ public class Sale implements Serializable {
     private Long id;
 
     @Column(nullable = false)
-    private Long costumerId;
+    private Long customerId;
 
     @Column(nullable = false)
     private Long sellerId;
@@ -56,7 +48,7 @@ public class Sale implements Serializable {
 
     public Sale(SaleDTO dto) {
 
-        this.costumerId = dto.costumerId();
+        this.customerId = dto.customerId();
         this.sellerId = dto.sellerId();
         this.productsQuantity = dto.productsQuantity();
         this.productsId = dto.productsId();

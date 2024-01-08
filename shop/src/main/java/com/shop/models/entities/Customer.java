@@ -1,7 +1,6 @@
 package com.shop.models.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.shop.models.dtos.CostumerDTO;
+import com.shop.models.dtos.CustomerDTO;
 import com.shop.models.enums.UserStatus;
 import com.shop.models.enums.Role;
 import jakarta.persistence.*;
@@ -12,20 +11,16 @@ import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.Locale;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Costumers")
+@Table(name = "Customers")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Costumer implements Serializable {
+public class Customer implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -60,7 +55,7 @@ public class Costumer implements Serializable {
 
     private LocalDateTime createdAt;
 
-    public Costumer(CostumerDTO dto) {
+    public Customer(CustomerDTO dto) {
 
         this.name = dto.name();
         this.cpf = dto.cpf();
@@ -72,7 +67,7 @@ public class Costumer implements Serializable {
         this.createdAt = LocalDateTime.now();
     }
 
-    public void update(CostumerDTO dto) {
+    public void update(CustomerDTO dto) {
 
         if (!Objects.equals(dto.name(), this.name)) this.name = dto.name();
         if (!Objects.equals(dto.cpf(), this.cpf)) this.cpf = dto.cpf();

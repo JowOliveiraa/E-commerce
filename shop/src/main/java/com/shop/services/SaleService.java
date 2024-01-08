@@ -31,7 +31,7 @@ public class SaleService {
     private SellerService sellerService;
 
     @Autowired
-    private CostumerService costumerService;
+    private CustomerService customerService;
 
     @Transactional
     public ResponseEntity<SaleDAO> createSale(SaleDTO dto) {
@@ -40,21 +40,21 @@ public class SaleService {
 
         dto.productsId().forEach(productId -> productService.removeQuantity(productId));
         sellerService.addSale(dto.sellerId());
-        costumerService.addPurchase(dto.costumerId());
+        customerService.addPurchase(dto.customerId());
 
         repository.save(sale);
         return ResponseEntity.status(HttpStatus.CREATED).body(new SaleDAO(sale));
     }
 
-    public Page<SaleDAO> search(Pageable pageable, Long costumerId, Long sellerId) {
+    public Page<SaleDAO> search(Pageable pageable, Long customerId, Long sellerId) {
 
         Page<Sale> sales = null;
         List<SaleDAO> pagedSales;
 
-        if (Objects.isNull(costumerId) && Objects.isNull(sellerId)) sales = repository.findAll(pageable);
-        if (!Objects.isNull(costumerId) && Objects.isNull(sellerId)) sales = repository.findByCostumerId(pageable, costumerId);
-        if (Objects.isNull(costumerId) && !Objects.isNull(sellerId)) sales = repository.findBySellerId(pageable, sellerId);
-        if (!Objects.isNull(costumerId) && !Objects.isNull(sellerId)) sales = repository.findByCostumerIdAndSellerId(pageable, costumerId, sellerId);
+        if (Objects.isNull(customerId) && Objects.isNull(sellerId)) sales = repository.findAll(pageable);
+        if (!Objects.isNull(customerId) && Objects.isNull(sellerId)) sales = repository.findByCustomerId(pageable, customerId);
+        if (Objects.isNull(customerId) && !Objects.isNull(sellerId)) sales = repository.findBySellerId(pageable, sellerId);
+        if (!Objects.isNull(customerId) && !Objects.isNull(sellerId)) sales = repository.findByCustomerIdAndSellerId(pageable, customerId, sellerId);
 
         pagedSales = sales.getContent().stream().map(SaleDAO::new).collect(Collectors.toList());
         return new PageImpl<>(pagedSales, pageable, sales.getTotalElements());

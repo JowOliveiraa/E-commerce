@@ -11,7 +11,7 @@ import java.util.Set;
 
 public record SaleDAO(
         Long id,
-        Long costumerId,
+        Long customerId,
         Long sellerId,
         Integer productsQuantity,
         Set<Long> productsId,
@@ -21,7 +21,7 @@ public record SaleDAO(
     public SaleDAO(Sale sale) {
         this(
                 sale.getId(),
-                sale.getCostumerId(),
+                sale.getCustomerId(),
                 sale.getSellerId(),
                 sale.getProductsQuantity(),
                 sale.getProductsId(),
