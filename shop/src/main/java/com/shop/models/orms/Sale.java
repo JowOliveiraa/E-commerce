@@ -13,6 +13,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
@@ -49,7 +50,7 @@ public class Sale implements Serializable {
     private BigDecimal price;
 
     @Column(nullable = false)
-    private LocalDate date;
+    private LocalDateTime date;
 
 
 
@@ -60,7 +61,7 @@ public class Sale implements Serializable {
         this.productsQuantity = dto.productsQuantity();
         this.productsId = dto.productsId();
         this.price = dto.price();
-        this.date = LocalDate.now();
+        this.date = LocalDateTime.now();
     }
 
 }

@@ -4,6 +4,9 @@ import com.shop.models.entities.Costumer;
 import com.shop.models.enums.Role;
 import com.shop.models.enums.UserStatus;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 public record CostumerDAO(
 
         Long id,
@@ -13,7 +16,8 @@ public record CostumerDAO(
         String cellPhone,
         Integer quantityOfPurchases,
         UserStatus status,
-        Role role) {
+        Role role,
+        LocalDateTime createdAt) {
 
     public CostumerDAO(Costumer costumer) {
         this(
@@ -24,7 +28,8 @@ public record CostumerDAO(
                 costumer.getCellPhone(),
                 costumer.getQuantityOfPurchases(),
                 costumer.getStatus(),
-                costumer.getRole()
+                costumer.getRole(),
+                costumer.getCreatedAt()
         );
     }
 }

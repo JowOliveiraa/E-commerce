@@ -4,6 +4,7 @@ import com.shop.models.entities.Product;
 import com.shop.models.enums.Category;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 public record ProductDAO(
         Long id,
@@ -12,7 +13,8 @@ public record ProductDAO(
         Integer quantity,
         Integer numberOfSales,
         Long seller,
-        Category category
+        Category category,
+        LocalDateTime registeredAt
 ) {
     public ProductDAO(Product product) {
         this(
@@ -22,7 +24,8 @@ public record ProductDAO(
                 product.getQuantity(),
                 product.getNumberOfSales(),
                 product.getSellerId(),
-                product.getCategory()
+                product.getCategory(),
+                product.getRegisteredAt()
         );
     }
 }

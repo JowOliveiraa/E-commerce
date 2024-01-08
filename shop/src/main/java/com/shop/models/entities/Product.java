@@ -11,6 +11,7 @@ import lombok.Setter;
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @AllArgsConstructor
@@ -47,6 +48,8 @@ public class Product implements Serializable {
     @Column(nullable = false, length = 30)
     private Category category;
 
+    private LocalDateTime registeredAt;
+
     public Product(ProductDTO dto) {
 
         this.name = dto.name();
@@ -55,6 +58,7 @@ public class Product implements Serializable {
         this.sellerId = dto.sellerId();
         this.category = dto.category();
         this.numberOfSales = 0;
+        this.registeredAt = LocalDateTime.now();
     }
 
     public void update(ProductDTO dto) {

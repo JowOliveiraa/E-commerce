@@ -5,6 +5,7 @@ import com.shop.models.entities.Seller;
 import com.shop.models.enums.Role;
 import com.shop.models.enums.UserStatus;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public record SellerDAO(
@@ -16,7 +17,8 @@ public record SellerDAO(
         String cellPhone,
         UserStatus status,
         Role role,
-        Integer numberOfSales
+        Integer numberOfSales,
+        LocalDateTime createdAt
 ) {
     public SellerDAO(Seller seller) {
         this(
@@ -27,8 +29,8 @@ public record SellerDAO(
                 seller.getCellPhone(),
                 seller.getStatus(),
                 seller.getRole(),
-                seller.getNumberOfSales()
-
+                seller.getNumberOfSales(),
+                seller.getCreatedAt()
         );
     }
 

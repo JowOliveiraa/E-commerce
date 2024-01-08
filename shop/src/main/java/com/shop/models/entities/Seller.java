@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 
@@ -51,6 +52,8 @@ public class Seller implements Serializable {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    private LocalDateTime createdAt;
+
     public Seller(SellerDTO dto) {
 
         this.name = dto.name();
@@ -60,6 +63,7 @@ public class Seller implements Serializable {
         this.status = UserStatus.ATIVO;
         this.numberOfSales = 0;
         this.role = Role.VENDEDOR;
+        this.createdAt = LocalDateTime.now();
     }
 
     public void update(SellerDTO dto) {

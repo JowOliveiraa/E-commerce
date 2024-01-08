@@ -1,5 +1,6 @@
 package com.shop.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.shop.models.dtos.CostumerDTO;
 import com.shop.models.enums.UserStatus;
 import com.shop.models.enums.Role;
@@ -11,6 +12,11 @@ import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 @Entity
@@ -52,6 +58,8 @@ public class Costumer implements Serializable {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    private LocalDateTime createdAt;
+
     public Costumer(CostumerDTO dto) {
 
         this.name = dto.name();
@@ -61,6 +69,7 @@ public class Costumer implements Serializable {
         this.quantityOfPurchases = 0;
         this.status = UserStatus.ATIVO;
         this.role = Role.CLIENTE;
+        this.createdAt = LocalDateTime.now();
     }
 
     public void update(CostumerDTO dto) {
