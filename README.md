@@ -49,7 +49,7 @@
 - Pode listar e filtrar apenas as vendas feitas por ele.
 - Pode listar e filtrar apenas as avaliações feitas ao produto dele.
 
-### Usuário Comum:
+### Cliente:
 
 - Deslogado, pode apenas listar e filtrar todos os produtos disponíveis.
 - Uma vez cadastrado e logado, pode listar e filtrar todos os produtos.
