@@ -4,9 +4,11 @@ import com.example.ecommerce.enums.Roles;
 import com.example.ecommerce.models.dtos.AdminDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
+@NoArgsConstructor
 @Table(name = "admins")
 public class Admin extends User {
 

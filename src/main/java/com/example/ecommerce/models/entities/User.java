@@ -3,15 +3,21 @@ package com.example.ecommerce.models.entities;
 import com.example.ecommerce.enums.Roles;
 import com.example.ecommerce.enums.Status;
 import jakarta.persistence.*;
+import jdk.jfr.Timestamp;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
+@Getter
+@NoArgsConstructor
 @MappedSuperclass
 public class User implements UserDetails {
 
@@ -43,7 +49,8 @@ public class User implements UserDetails {
     private Roles role;
 
     @Column(nullable = false)
-    private SimpleDateFormat registerAt;
+    @Timestamp
+    private LocalDateTime registerAt;
 
 
     public User(String name, String cpf, String email, String password, Roles role) {
@@ -54,7 +61,7 @@ public class User implements UserDetails {
         this.password = password;
         this.role = role;
         this.status = Status.ACTIVE;
-        this.registerAt = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        this.registerAt = LocalDateTime.now();
     }
 
 

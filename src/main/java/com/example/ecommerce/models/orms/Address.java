@@ -1,11 +1,14 @@
 package com.example.ecommerce.models.orms;
 
+import com.example.ecommerce.models.dtos.AddressDTO;
 import com.example.ecommerce.models.entities.Customer;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
+@NoArgsConstructor
 @Table(name = "addresses")
 public class Address {
 
@@ -21,4 +24,11 @@ public class Address {
 
     @Column(nullable = false, length = 10)
     private String zipCode;
+
+
+    public Address(AddressDTO dto) {
+
+        this.StreetAndNumber = dto.streetAndNumber();
+        this.zipCode = dto.zipCode();
+    }
 }

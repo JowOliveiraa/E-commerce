@@ -5,9 +5,11 @@ import com.example.ecommerce.models.dtos.CustomerDTO;
 import com.example.ecommerce.models.orms.Address;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
+@NoArgsConstructor
 @Table(name = "customers")
 public class Customer extends User {
 
@@ -20,6 +22,7 @@ public class Customer extends User {
     public Customer(CustomerDTO dto) {
         super(dto.name(), dto.cpf(), dto.email(), dto.password(), Roles.CUSTOMER);
         this.numberOfPurchases = 0;
+        this.address = new Address(dto.address());
     }
 
     public void doPurchase() {
