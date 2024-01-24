@@ -21,6 +21,19 @@ public class SecurityConfigurations {
     @Autowired
     private CustomerSecurityFilter customerFilter;
 
+    private static final String[] Swagger_Access = {
+        "/v2/api-docs",
+                "/swagger-resources",
+                "/swagger-resources/**",
+                "/configuration/ui",
+                "/configuration/security",
+                "/swagger-ui.html",
+                "/webjars/**",
+                "/v3/api-docs/**",
+                "/swagger-ui/**",
+
+    };
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
@@ -28,6 +41,7 @@ public class SecurityConfigurations {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
+                                .requestMatchers(Swagger_Access).permitAll()
                                 .requestMatchers(HttpMethod.POST, "/customer/register", "/customer/login").permitAll()
                         )
                 .addFilterBefore(customerFilter, UsernamePasswordAuthenticationFilter.class)

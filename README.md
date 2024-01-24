@@ -22,7 +22,7 @@
 - Utilizei o Spring Security com JWT para tratar a autenticação e autorização da aplicação.
 
 ### Swagger
-- Utilizei o Swagger para documentar a API e facilitar a visualização dos endpoints.
+- Utilizei o SpringDoc OpenAPI Starter WebMVC UI para documentar a API e facilitar a visualização dos endpoints.
 
 <br>
 
