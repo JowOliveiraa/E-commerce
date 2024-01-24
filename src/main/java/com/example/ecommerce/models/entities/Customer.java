@@ -23,6 +23,7 @@ public class Customer extends User {
         super(dto.name(), dto.cpf(), dto.email(), dto.password(), Roles.CUSTOMER);
         this.numberOfPurchases = 0;
         this.address = new Address(dto.address());
+        this.address.setCustomer(this);
     }
 
     public void doPurchase() {
