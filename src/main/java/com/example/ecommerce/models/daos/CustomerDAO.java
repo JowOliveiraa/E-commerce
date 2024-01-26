@@ -1,7 +1,8 @@
 package com.example.ecommerce.models.daos;
 
-import com.example.ecommerce.enums.Roles;
 import com.example.ecommerce.models.entities.Customer;
+import com.example.ecommerce.models.enums.Role;
+import com.example.ecommerce.models.enums.Status;
 
 import java.time.LocalDateTime;
 
@@ -10,9 +11,10 @@ public record CustomerDAO(
         String name,
         String cpf,
         String email,
-        LocalDateTime registerAt,
         Integer numberOfPurchases,
-        Roles role
+        LocalDateTime registerAt,
+        Role role,
+        Status status
 ) {
     public CustomerDAO(Customer customer) {
         this(
@@ -20,9 +22,10 @@ public record CustomerDAO(
                 customer.getName(),
                 customer.getCpf(),
                 customer.getEmail(),
-                customer.getRegisterAt(),
                 customer.getNumberOfPurchases(),
-                customer.getRole()
-        );
+                customer.getRegisterAt(),
+                customer.getRole(),
+                customer.getStatus()
+                );
     }
 }

@@ -3,13 +3,13 @@ package com.example.ecommerce.models.dtos;
 import jakarta.validation.constraints.NotBlank;
 
 public record AdminDTO(
-        @NotBlank(message = "nome vazios")
+        @NotBlank
         String name,
-        @NotBlank(message = "cpf vazio")
+        @NotBlank
         String cpf,
-        @NotBlank(message = "email vazio")
+        @NotBlank
         String email,
-        @NotBlank(message = "password vazio")
+        @NotBlank
         String password
 ) {
 }

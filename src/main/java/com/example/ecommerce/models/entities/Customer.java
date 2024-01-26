@@ -1,33 +1,36 @@
 package com.example.ecommerce.models.entities;
 
-import com.example.ecommerce.enums.Roles;
 import com.example.ecommerce.models.dtos.CustomerDTO;
+import com.example.ecommerce.models.dtos.UpdateDTO;
+import com.example.ecommerce.models.enums.Role;
 import com.example.ecommerce.models.orms.Address;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Getter
 @Entity
-@NoArgsConstructor
 @Table(name = "customers")
-public class Customer extends User {
+public class Customer extends User{
 
     @Column(nullable = false)
     private Integer numberOfPurchases;
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Address address;
+    Address address;
+
 
     public Customer(CustomerDTO dto) {
-        super(dto.name(), dto.cpf(), dto.email(), dto.password(), Roles.CUSTOMER);
+
+        super(dto.name(), dto.cpf(), dto.email(), dto.password(), Role.CUSTOMER);
         this.numberOfPurchases = 0;
         this.address = new Address(dto.address());
         this.address.setCustomer(this);
     }
 
-    public void doPurchase() {
+    public void update(UpdateDTO dto) {
 
-        this.numberOfPurchases += 1;
+        update(dto.name(), dto.email());
     }
 }

@@ -7,9 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
 @Getter
 @Entity
-@NoArgsConstructor
 @Table(name = "addresses")
 public class Address {
 
@@ -22,15 +22,20 @@ public class Address {
     private Customer customer;
 
     @Column(nullable = false, length = 50)
-    private String StreetAndNumber;
+    private String streetAndNumber;
 
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false, length = 8)
     private String zipCode;
-
 
     public Address(AddressDTO dto) {
 
-        this.StreetAndNumber = dto.streetAndNumber();
+        this.streetAndNumber = dto.streetAndNumber();
+        this.zipCode = dto.zipCode();
+    }
+
+    public void update(AddressDTO dto) {
+
+        this.streetAndNumber = dto.streetAndNumber();
         this.zipCode = dto.zipCode();
     }
 }

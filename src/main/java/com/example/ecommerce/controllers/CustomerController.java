@@ -1,43 +1,60 @@
 package com.example.ecommerce.controllers;
 
+import com.example.ecommerce.models.daos.CustomerDAO;
+import com.example.ecommerce.models.dtos.AddressDTO;
 import com.example.ecommerce.models.dtos.CustomerDTO;
-import com.example.ecommerce.models.dtos.LoginDTO;
+import com.example.ecommerce.models.dtos.UpdateDTO;
 import com.example.ecommerce.services.CustomerService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "Controller de customer", description = "centraliza todas as requests vinculadas ao clinte.")
 @RestController
-@RequestMapping(value = "/customer")
+@RequestMapping("/customer")
 public class CustomerController {
 
     @Autowired
     private CustomerService service;
 
-    @Operation(summary = "Criar um cliente", method = "POST",
-    responses = {
-            @ApiResponse(responseCode = "201", description = "CREATED: Devolve as informações basicas do cliente que acabou de ser criado."),
-            @ApiResponse(responseCode = "409", description = "CONFLICT: CPF ja existente no banco."),
-            @ApiResponse(responseCode = "403", description = "FORBIDDEN: Informações invalidas na requisição.")
-    })
     @PostMapping("/register")
-    public ResponseEntity register(@Valid @RequestBody CustomerDTO dto) {
+    public ResponseEntity register(@RequestBody CustomerDTO dto) {
         return service.register(dto);
     }
 
-    @Operation(summary = "fazer login como cliente",
-    method = "POST", responses = {
-            @ApiResponse(responseCode = "202", description = "ACCEPTED: Devolve o id, a role e o token do usuario."),
-            @ApiResponse(responseCode = "403", description = "FORBIDDEN: Informações invalidas na requisição.")
-    })
-    @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginDTO dto) {
-        return service.login(dto);
+    @GetMapping
+    public Page<CustomerDAO> listAllCustomers(@PageableDefault(size = 10, page = 0)Pageable pageable,
+                                              @RequestParam(defaultValue = "ACTIVE", required = false) String status,
+                                              @RequestParam(required = false) String search
+                                              ) {
+        return service.listAllCustomer(pageable, status, search);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity getById(@PathVariable Long id) {
+        return service.getById(id);
+
+    }
+
+    @PutMapping("/{status}/{id}")
+    public ResponseEntity customerStatus(@PathVariable Long id,@PathVariable String status) {
+        return service.customerStatus(id, status);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity update(@PathVariable Long id, @RequestBody UpdateDTO dto) {
+        return service.update(id, dto);
+    }
+
+    @GetMapping("/address/{id}")
+    public ResponseEntity getAddressById(@PathVariable Long id) {
+        return service.getAddressById(id);
+    }
+
+    @PutMapping("/address/{id}")
+    public ResponseEntity updateAddress(@PathVariable Long id, @RequestBody AddressDTO dto) {
+        return service.updateAddress(id, dto);
+    }
 }

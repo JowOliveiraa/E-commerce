@@ -1,7 +1,8 @@
 package com.example.ecommerce.models.daos;
 
-import com.example.ecommerce.enums.Roles;
 import com.example.ecommerce.models.entities.Seller;
+import com.example.ecommerce.models.enums.Role;
+import com.example.ecommerce.models.enums.Status;
 
 import java.time.LocalDateTime;
 
@@ -10,20 +11,22 @@ public record SellerDAO(
         String name,
         String cpf,
         String email,
-        LocalDateTime registerAt,
         Integer numberOfSales,
-        Roles role
+        LocalDateTime registerAt,
+        Role role,
+        Status status
 ) {
     public SellerDAO(Seller seller) {
+
         this(
                 seller.getId(),
                 seller.getName(),
                 seller.getCpf(),
                 seller.getEmail(),
-                seller.getRegisterAt(),
                 seller.getNumberOfSales(),
-                seller.getRole()
-
+                seller.getRegisterAt(),
+                seller.getRole(),
+                seller.getStatus()
         );
     }
 }

@@ -1,21 +1,18 @@
 package com.example.ecommerce.models.dtos;
 
-import com.example.ecommerce.models.orms.Address;
 import jakarta.validation.constraints.NotBlank;
-import org.hibernate.validator.constraints.Length;
 
 public record CustomerDTO(
-        @NotBlank(message = "nome vazios")
-        @Length(max = 50)
+        @NotBlank
         String name,
-        @NotBlank(message = "cpf vazio")
-        @Length(max = 11)
+        @NotBlank
         String cpf,
-        @Length(max = 50)
-        @NotBlank(message = "email vazio")
+        @NotBlank
         String email,
-        @NotBlank(message = "password vazio")
+        @NotBlank
         String password,
+        @NotBlank
         AddressDTO address
+
 ) {
 }
