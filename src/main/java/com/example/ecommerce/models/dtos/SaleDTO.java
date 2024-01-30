@@ -8,6 +8,5 @@ public record SaleDTO(
         Long customerId,
         Long sellerId,
         List<ProductsSold> products
-
 ) {
 }

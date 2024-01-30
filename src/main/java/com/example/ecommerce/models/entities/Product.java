@@ -7,11 +7,13 @@ import jakarta.persistence.*;
 import jdk.jfr.Timestamp;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
+@ToString
 @Getter
 @Entity
 @Table(name = "products")

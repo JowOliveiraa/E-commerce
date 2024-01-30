@@ -33,4 +33,9 @@ public class Customer extends User{
 
         update(dto.name(), dto.email());
     }
+
+    public void doPurchase() {
+
+        this.numberOfPurchases += 1;
+    }
 }

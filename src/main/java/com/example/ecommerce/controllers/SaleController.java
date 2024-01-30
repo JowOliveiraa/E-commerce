@@ -1,6 +1,5 @@
 package com.example.ecommerce.controllers;
 
-import com.example.ecommerce.models.daos.SaleDAO;
 import com.example.ecommerce.models.dtos.SaleDTO;
 import com.example.ecommerce.services.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;

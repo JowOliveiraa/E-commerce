@@ -28,4 +28,9 @@ public class Seller extends User{
 
         update(dto.name(), dto.email());
     }
+
+    public void doSale() {
+
+        this.numberOfSales += 1;
+    }
 }

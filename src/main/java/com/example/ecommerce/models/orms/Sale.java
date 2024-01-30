@@ -1,8 +1,6 @@
 package com.example.ecommerce.models.orms;
 
 import com.example.ecommerce.models.dtos.SaleDTO;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

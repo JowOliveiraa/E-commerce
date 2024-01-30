@@ -1,21 +1,20 @@
 package com.example.ecommerce.models.orms;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.io.Serializable;
-
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @ToString
 @Embeddable
-public class ProductsSold implements Serializable {
+public class ProductsSold{
 
     private Long productId;
 
     private Integer quantity;
+
 }
