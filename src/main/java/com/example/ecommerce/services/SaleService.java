@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 @Service
@@ -103,33 +102,3 @@ public class SaleService {
         return new PageImpl<>(pagedSales, pageable, sales.getTotalElements());
     }
 }
-
-//@Transactional
-//public ResponseEntity register(SaleDTO dto) {
-//    // ... lógica de criação e salvamento da venda
-//
-//    dto.getProducts().forEach(productsSoldDTO -> {
-//        Long productId = productsSoldDTO.getProductId();
-//        Integer quantity = productsSoldDTO.getQuantity();
-//
-//        // Obtém uma referência ao produto pelo ID
-//        Product product = productRepository.getOne(productId);
-//
-//        if (product != null) {
-//            // Chama o método sold no produto
-//            boolean soldSuccessfully = product.sold(quantity);
-//
-//            // Se a venda não for bem-sucedida, você pode tratar isso de acordo com seus requisitos
-//            if (!soldSuccessfully) {
-//                ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Quantidade indisponível para o produto com ID " + productId);
-//            }
-//
-//            // Atualiza o produto no repositório
-//            productRepository.save(product);
-//        } else {
-//            ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Produto com ID " + productId + " não encontrado.");
-//        }
-//    });
-//
-//    return ResponseEntity.status(HttpStatus.CREATED).body(new SaleDAO(sale));
-//}
