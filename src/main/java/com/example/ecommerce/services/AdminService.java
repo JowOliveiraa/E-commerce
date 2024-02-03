@@ -1,11 +1,13 @@
 package com.example.ecommerce.services;
 
 import com.example.ecommerce.models.daos.AdminDAO;
-import com.example.ecommerce.models.dtos.AdminDTO;
+import com.example.ecommerce.models.dtos.LoginDTO;
+import com.example.ecommerce.models.dtos.RegisterDTO;
 import com.example.ecommerce.models.dtos.UpdateDTO;
-import com.example.ecommerce.models.entities.Admin;
+import com.example.ecommerce.models.entities.User;
+import com.example.ecommerce.models.enums.Role;
 import com.example.ecommerce.models.enums.Status;
-import com.example.ecommerce.repositories.AdminRepository;
+import com.example.ecommerce.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,71 +25,74 @@ import java.util.stream.Collectors;
 public class AdminService {
 
     @Autowired
-    private AdminRepository repository;
+    private UserRepository repository;
 
-    @Transactional
-    public ResponseEntity register(AdminDTO dto) {
+    @Autowired
+    private AuthenticationService authService;
 
-        if (repository.existsByCpf(dto.cpf())) {
+    private static final String role = "ADMIN";
 
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("CPF ja cadastrado no sistema!");
-        }
-        var admin = new Admin(dto);
-        repository.save(admin);
+    public ResponseEntity<Object> register(RegisterDTO dto) {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new AdminDAO(admin));
+        return authService.register(dto, Role.ADMIN);
     }
 
-    public ResponseEntity getById(Long id) {
+    public ResponseEntity<Object> login(LoginDTO dto) {
 
-        if (!repository.existsById(id)) {
+        return authService.login(dto);
+    }
+
+    public ResponseEntity<Object> getById(Long id) {
+
+        if (authService.notExists(id, role)) {
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id invalido!");
         }
+
         var admin = repository.getReferenceById(id);
 
         return ResponseEntity.status(HttpStatus.OK).body(new AdminDAO(admin));
     }
 
-    public Page search(Pageable pageable, String status, String search) {
+    public Page<AdminDAO> search(Pageable pageable, String search, String status) {
 
-        Page<Admin> adminsList = null;
-        List<AdminDAO> pagedAdmins;
+        Page<User> pagedAdmins = null;
 
-        if (Objects.isNull(search)) adminsList = repository.findByStatus(pageable, status);
-        if (!Objects.isNull(search)) adminsList = repository.search(pageable, status, search);
+         if (!Objects.isNull(search)) pagedAdmins = repository.findByNameOrCpf(pageable, role, status, search);
+         else pagedAdmins = repository.find(pageable, role, status);
 
-        pagedAdmins = adminsList.getContent().stream().map(AdminDAO::new).collect(Collectors.toList());
+        List<AdminDAO> admins = pagedAdmins.getContent().stream().map(AdminDAO::new).collect(Collectors.toList());
 
-        return new PageImpl<>(pagedAdmins, pageable, adminsList.getTotalElements());
+        return new PageImpl<>(admins, pageable, pagedAdmins.getTotalElements());
     }
 
     @Transactional
-    public ResponseEntity adminStatus(Long id, String status) {
+    public ResponseEntity<Object> status(String status, Long id) {
 
-        if (!repository.existsById(id)) {
+        if (authService.notExists(id, role)) {
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id invalido!");
         }
+
         var admin = repository.getReferenceById(id);
 
         if (Objects.equals(status, "active")) admin.setStatus(Status.ACTIVE);
-        if (Objects.equals(status, "inactive")) admin.setStatus(Status.INACTIVE);
+        else if (Objects.equals(status, "inactive")) admin.setStatus(Status.INACTIVE);
+        else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Status invalido!");
 
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Status alterado!");
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
     @Transactional
-    public ResponseEntity update(Long id, UpdateDTO dto) {
+    public ResponseEntity<Object> update(Long id, UpdateDTO dto) {
 
-        if (!repository.existsById(id)) {
+        if (authService.notExists(id, role)) {
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id invalido!");
         }
-        var admin = repository.getReferenceById(id);
 
+        var admin = repository.getReferenceById(id);
         admin.update(dto);
-        repository.saveAndFlush(admin);
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(new AdminDAO(admin));
     }

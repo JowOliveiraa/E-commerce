@@ -1,18 +1,22 @@
 package com.example.ecommerce.models.daos;
 
-import com.example.ecommerce.models.entities.Customer;
-import com.example.ecommerce.models.orms.Address;
+import com.example.ecommerce.models.entities.Address;
 
 public record AddressDAO(
         Long id,
-        String streetAndNumber,
+        Long userId,
+        String street,
+        String number,
         String zipCode
 ) {
+
     public AddressDAO(Address address) {
 
         this(
                 address.getId(),
-                address.getStreetAndNumber(),
+                address.getUserId(),
+                address.getStreet(),
+                address.getNumber(),
                 address.getZipCode()
         );
     }

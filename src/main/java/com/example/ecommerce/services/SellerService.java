@@ -1,11 +1,13 @@
 package com.example.ecommerce.services;
 
 import com.example.ecommerce.models.daos.SellerDAO;
-import com.example.ecommerce.models.dtos.SellerDTO;
+import com.example.ecommerce.models.dtos.LoginDTO;
+import com.example.ecommerce.models.dtos.RegisterDTO;
 import com.example.ecommerce.models.dtos.UpdateDTO;
-import com.example.ecommerce.models.entities.Seller;
+import com.example.ecommerce.models.entities.User;
+import com.example.ecommerce.models.enums.Role;
 import com.example.ecommerce.models.enums.Status;
-import com.example.ecommerce.repositories.SellerRepository;
+import com.example.ecommerce.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,75 +25,76 @@ import java.util.stream.Collectors;
 public class SellerService {
 
     @Autowired
-    private SellerRepository repository;
+    private UserRepository repository;
 
+    @Autowired
+    private AuthenticationService authService;
 
-    @Transactional
-    public ResponseEntity register(SellerDTO dto) {
+    private static final String role = "SELLER";
 
-        if (repository.existsByCpf(dto.cpf())) {
+    public ResponseEntity<Object> register(RegisterDTO dto) {
 
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("CPF ja cadastrado no sistema");
-        }
-        var seller = new Seller(dto);
-        repository.save(seller);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(new SellerDAO(seller));
-
+        return authService.register(dto, Role.SELLER);
     }
 
-    public Page<SellerDAO> search(Pageable pageable, String status, String search) {
+    public ResponseEntity<Object> login(LoginDTO dto) {
 
-        Page<Seller> sellersList = null;
-        List<SellerDAO> pagedSellers;
-
-        if (Objects.isNull(search)) sellersList = repository.findByStatus(pageable, status);
-        if (!Objects.isNull(search)) sellersList = repository.search(pageable, status, search);
-
-        pagedSellers = sellersList.getContent().stream().map(SellerDAO::new).collect(Collectors.toList());
-
-        return new PageImpl<>(pagedSellers, pageable, sellersList.getTotalElements());
-
+        return authService.login(dto);
     }
 
-    public ResponseEntity getById(Long id) {
+    public ResponseEntity<Object> getById(Long id) {
 
-        if (!repository.existsById(id)) {
+        if (authService.notExists(id, role)) {
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id invalido!");
         }
+
         var seller = repository.getReferenceById(id);
 
         return ResponseEntity.status(HttpStatus.OK).body(new SellerDAO(seller));
+
+    }
+
+
+    public Page<SellerDAO> search(Pageable pageable, String search, String status) {
+
+        Page<User> pagedSellers = null;
+
+        if (!Objects.isNull(search)) pagedSellers = repository.findByNameOrCpf(pageable, role, status, search);
+        else pagedSellers = repository.find(pageable, role, status);
+
+        List<SellerDAO> sellers = pagedSellers.getContent().stream().map(SellerDAO::new).collect(Collectors.toList());
+
+        return new PageImpl<>(sellers, pageable, pagedSellers.getTotalElements());
     }
 
     @Transactional
-    public ResponseEntity sellerStatus(Long id, String status) {
+    public ResponseEntity<Object> status(String status, Long id) {
 
-        if (!repository.existsById(id)) {
+        if (authService.notExists(id, role)) {
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id invalido!");
         }
+
         var seller = repository.getReferenceById(id);
 
         if (Objects.equals(status, "active")) seller.setStatus(Status.ACTIVE);
-        if (Objects.equals(status, "inactive")) seller.setStatus(Status.INACTIVE);
+        else if (Objects.equals(status, "inactive")) seller.setStatus(Status.INACTIVE);
+        else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Status invalido!");
 
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Status Alterado!");
-
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
+    @Transactional
+    public ResponseEntity<Object> update(Long id, UpdateDTO dto) {
 
-    public ResponseEntity update(Long id, UpdateDTO dto) {
-
-        if (!repository.existsById(id)) {
+        if (authService.notExists(id, role)) {
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id invalido!");
         }
+
         var seller = repository.getReferenceById(id);
         seller.update(dto);
-
-        repository.save(seller);
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(new SellerDAO(seller));
     }

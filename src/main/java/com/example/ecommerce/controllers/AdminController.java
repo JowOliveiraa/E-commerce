@@ -1,6 +1,8 @@
 package com.example.ecommerce.controllers;
 
-import com.example.ecommerce.models.dtos.AdminDTO;
+import com.example.ecommerce.models.daos.AdminDAO;
+import com.example.ecommerce.models.dtos.LoginDTO;
+import com.example.ecommerce.models.dtos.RegisterDTO;
 import com.example.ecommerce.models.dtos.UpdateDTO;
 import com.example.ecommerce.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,30 +20,37 @@ public class AdminController {
     private AdminService service;
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody AdminDTO dto) {
+    public ResponseEntity<Object> register(@RequestBody RegisterDTO dto) {
         return service.register(dto);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<Object> login(@RequestBody LoginDTO dto) {
+        return service.login(dto);
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity getById(@PathVariable Long id) {
+    public ResponseEntity<Object> getById(@PathVariable Long id) {
         return service.getById(id);
     }
 
     @GetMapping
-    public Page listAllAdmins(@PageableDefault(size = 10, page = 0)Pageable pageable,
-                              @RequestParam(required = false, defaultValue = "ACTIVE") String status,
-                              @RequestParam(required = false) String search
-                              ) {
-        return service.search(pageable, status, search);
+    public Page<AdminDAO> listAllAdmins(@PageableDefault(size = 10, page = 0)Pageable pageable,
+                                        @RequestParam(required = false)String search,
+                                        @RequestParam(required = false, defaultValue = "ACTIVE") String status
+    ) {
+        return service.search(pageable, search, status);
     }
 
     @PutMapping("/{status}/{id}")
-    public ResponseEntity adminStatus(@PathVariable Long id, @PathVariable String status) {
-        return service.adminStatus(id, status);
+    public ResponseEntity<Object> status(@PathVariable String status, @PathVariable Long id) {
+        return service.status(status, id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable Long id, @RequestBody UpdateDTO dto) {
+    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody UpdateDTO dto) {
         return service.update(id, dto);
     }
+
+
 }

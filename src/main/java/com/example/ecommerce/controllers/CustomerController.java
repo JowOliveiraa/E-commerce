@@ -1,8 +1,8 @@
 package com.example.ecommerce.controllers;
 
 import com.example.ecommerce.models.daos.CustomerDAO;
-import com.example.ecommerce.models.dtos.AddressDTO;
-import com.example.ecommerce.models.dtos.CustomerDTO;
+import com.example.ecommerce.models.dtos.LoginDTO;
+import com.example.ecommerce.models.dtos.RegisterDTO;
 import com.example.ecommerce.models.dtos.UpdateDTO;
 import com.example.ecommerce.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,45 +16,42 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/customer")
 public class CustomerController {
 
+
     @Autowired
     private CustomerService service;
 
+
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody CustomerDTO dto) {
+    public ResponseEntity<Object> register(@RequestBody RegisterDTO dto) {
         return service.register(dto);
     }
 
-    @GetMapping
-    public Page<CustomerDAO> listAllCustomers(@PageableDefault(size = 10, page = 0)Pageable pageable,
-                                              @RequestParam(defaultValue = "ACTIVE", required = false) String status,
-                                              @RequestParam(required = false) String search
-                                              ) {
-        return service.listAllCustomer(pageable, status, search);
+    @PostMapping("/login")
+    public ResponseEntity<Object> login(@RequestBody LoginDTO dto) {
+        return service.login(dto);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getById(@PathVariable Long id) {
+    public ResponseEntity<Object> getById(@PathVariable Long id) {
         return service.getById(id);
+    }
 
+    @GetMapping
+    public Page<CustomerDAO> listAllCustomer(@PageableDefault(size = 10, page = 0)Pageable pageable,
+                                             @RequestParam(required = false, defaultValue = "ACTIVE")String status,
+                                             @RequestParam(required = false)String search
+    ) {
+        return service.search(pageable, status, search);
     }
 
     @PutMapping("/{status}/{id}")
-    public ResponseEntity customerStatus(@PathVariable Long id,@PathVariable String status) {
-        return service.customerStatus(id, status);
+    public ResponseEntity<Object> status(@PathVariable String status, @PathVariable Long id) {
+        return service.status(id, status);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable Long id, @RequestBody UpdateDTO dto) {
+    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody UpdateDTO dto) {
         return service.update(id, dto);
     }
 
-    @GetMapping("/address/{id}")
-    public ResponseEntity getAddressById(@PathVariable Long id) {
-        return service.getAddressById(id);
-    }
-
-    @PutMapping("/address/{id}")
-    public ResponseEntity updateAddress(@PathVariable Long id, @RequestBody AddressDTO dto) {
-        return service.updateAddress(id, dto);
-    }
 }

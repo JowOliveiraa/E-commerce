@@ -1,13 +1,15 @@
 package com.example.ecommerce.models.dtos;
 
 import jakarta.validation.constraints.NotBlank;
-import org.hibernate.validator.constraints.Length;
 
 public record AddressDTO(
         @NotBlank
-        String streetAndNumber,
+        Long userId,
         @NotBlank
-        @Length(max = 8, message = "o numero maximo de numeros é 8")
+        String street,
+        @NotBlank
+        String number,
+        @NotBlank
         String zipCode
 ) {
 }
