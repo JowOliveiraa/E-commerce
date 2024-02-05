@@ -3,7 +3,7 @@ package com.example.ecommerce.services;
 import com.example.ecommerce.models.daos.SellerDAO;
 import com.example.ecommerce.models.dtos.LoginDTO;
 import com.example.ecommerce.models.dtos.RegisterDTO;
-import com.example.ecommerce.models.dtos.UpdateDTO;
+import com.example.ecommerce.models.dtos.UpdateUserDTO;
 import com.example.ecommerce.models.entities.User;
 import com.example.ecommerce.models.enums.Role;
 import com.example.ecommerce.models.enums.Status;
@@ -86,7 +86,7 @@ public class SellerService {
     }
 
     @Transactional
-    public ResponseEntity<Object> update(Long id, UpdateDTO dto) {
+    public ResponseEntity<Object> update(Long id, UpdateUserDTO dto) {
 
         if (authService.notExists(id, role)) {
 

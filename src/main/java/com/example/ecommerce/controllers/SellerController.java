@@ -3,9 +3,7 @@ package com.example.ecommerce.controllers;
 import com.example.ecommerce.models.daos.SellerDAO;
 import com.example.ecommerce.models.dtos.LoginDTO;
 import com.example.ecommerce.models.dtos.RegisterDTO;
-import com.example.ecommerce.models.dtos.UpdateDTO;
-import com.example.ecommerce.models.enums.Role;
-import com.example.ecommerce.services.AuthenticationService;
+import com.example.ecommerce.models.dtos.UpdateUserDTO;
 import com.example.ecommerce.services.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -50,7 +48,7 @@ public class SellerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody UpdateDTO dto) {
+    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody UpdateUserDTO dto) {
         return service.update(id, dto);
     }
 }

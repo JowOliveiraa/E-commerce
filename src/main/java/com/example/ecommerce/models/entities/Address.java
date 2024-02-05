@@ -1,6 +1,7 @@
 package com.example.ecommerce.models.entities;
 
 import com.example.ecommerce.models.dtos.AddressDTO;
+import com.example.ecommerce.models.dtos.UpdateAddressDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,13 @@ public class Address {
     public Address(AddressDTO dto) {
 
         this.userId = dto.userId();
+        this.street = dto.street();
+        this.number = dto.number();
+        this.zipCode = dto.zipCode();
+    }
+
+    public void update(UpdateAddressDTO dto) {
+
         this.street = dto.street();
         this.number = dto.number();
         this.zipCode = dto.zipCode();

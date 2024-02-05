@@ -1,7 +1,7 @@
 package com.example.ecommerce.models.entities;
 
 import com.example.ecommerce.models.dtos.RegisterDTO;
-import com.example.ecommerce.models.dtos.UpdateDTO;
+import com.example.ecommerce.models.dtos.UpdateUserDTO;
 import com.example.ecommerce.models.enums.Role;
 import com.example.ecommerce.models.enums.Status;
 import jakarta.persistence.*;
@@ -75,7 +75,7 @@ public class User implements UserDetails {
         this.numberOfPurchases = 0;
     }
 
-    public void update(UpdateDTO dto) {
+    public void update(UpdateUserDTO dto) {
 
         this.name = dto.name();
         this.email = dto.email();

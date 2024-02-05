@@ -2,6 +2,7 @@ package com.example.ecommerce.services;
 
 import com.example.ecommerce.models.daos.AddressDAO;
 import com.example.ecommerce.models.dtos.AddressDTO;
+import com.example.ecommerce.models.dtos.UpdateAddressDTO;
 import com.example.ecommerce.models.entities.Address;
 import com.example.ecommerce.repositories.AddressRepository;
 import com.example.ecommerce.repositories.UserRepository;
@@ -50,12 +51,12 @@ public class AddressService {
 
     public ResponseEntity<Object> getById(Long id) {
 
-        if (!repository.existsById(id)) {
+        if (!repository.existsByUserId(id)) {
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id invalido!");
         }
 
-        var address = repository.getReferenceById(id);
+        var address = repository.getReferenceByUserId(id);
 
         return ResponseEntity.status(HttpStatus.OK).body(new AddressDAO(address));
     }
@@ -70,5 +71,19 @@ public class AddressService {
         List<AddressDAO> addresses = pagedAddresses.getContent().stream().map(AddressDAO::new).collect(Collectors.toList());
 
         return new PageImpl<>(addresses, pageable, pagedAddresses.getTotalElements());
+    }
+
+    @Transactional
+    public ResponseEntity<Object> update(Long id, UpdateAddressDTO dto) {
+
+        if (!repository.existsById(id)) {
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id invalido!");
+        }
+
+        var address = repository.getReferenceById(id);
+        address.update(dto);
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new AddressDAO(address));
     }
 }

@@ -10,8 +10,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AddressRepository extends JpaRepository<Address, Long> {
-    boolean existsByUserId(Long aLong);
+    boolean existsByUserId(Long id);
 
     @Query(value = "SELECT * FROM addresses WHERE street LIKE %:search% OR zip_code LIKE %:search%",nativeQuery = true)
     Page<Address> search(Pageable pageable,@Param("search") String search);
+
+    Address getReferenceByUserId(Long id);
 }

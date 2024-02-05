@@ -2,6 +2,7 @@ package com.example.ecommerce.controllers;
 
 import com.example.ecommerce.models.daos.AddressDAO;
 import com.example.ecommerce.models.dtos.AddressDTO;
+import com.example.ecommerce.models.dtos.UpdateAddressDTO;
 import com.example.ecommerce.services.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,5 +32,10 @@ public class AddressController {
     public Page<AddressDAO> listAllAddresses(@PageableDefault(size = 10, page = 0)Pageable pageable,
                                              @RequestParam(required = false)String search) {
         return service.search(pageable, search);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody UpdateAddressDTO dto) {
+        return service.update(id, dto);
     }
 }

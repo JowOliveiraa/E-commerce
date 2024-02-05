@@ -3,7 +3,7 @@ package com.example.ecommerce.controllers;
 import com.example.ecommerce.models.daos.AdminDAO;
 import com.example.ecommerce.models.dtos.LoginDTO;
 import com.example.ecommerce.models.dtos.RegisterDTO;
-import com.example.ecommerce.models.dtos.UpdateDTO;
+import com.example.ecommerce.models.dtos.UpdateUserDTO;
 import com.example.ecommerce.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -48,7 +48,7 @@ public class AdminController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody UpdateDTO dto) {
+    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody UpdateUserDTO dto) {
         return service.update(id, dto);
     }
 
