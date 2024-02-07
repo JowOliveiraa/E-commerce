@@ -9,8 +9,6 @@ import java.util.List;
 public record SaleDTO(
         @NotBlank
         Long customerId,
-        @NotBlank
-        Long sellerId,
         @NotNull
         List<SoldProducts> products
 ) {

@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 public record SaleDAO(
         Long id,
         Long customerId,
-        Long sellerId,
         LocalDateTime registerAt,
         List<SoldProductsDAO> products
 ) {
@@ -20,7 +19,6 @@ public record SaleDAO(
         this(
                 sale.getId(),
                 sale.getCustomerId(),
-                sale.getSellerId(),
                 sale.getRegisterAt(),
                 sale.getProducts().stream().map(SoldProductsDAO::new).collect(Collectors.toList())
         );

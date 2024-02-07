@@ -82,6 +82,20 @@ public class User implements UserDetails {
     }
 
 
+// customer methods
+
+    public void purchase() {
+
+        this.numberOfPurchases += 1;
+    }
+
+// seller methods
+
+    public void sell() {
+
+        this.numberOfSales += 1;
+    }
+
 // authentication methods
 
     @Override

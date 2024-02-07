@@ -3,6 +3,7 @@ package com.example.ecommerce.models.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @NoArgsConstructor
@@ -19,6 +20,10 @@ public class SoldProducts {
 
     @Column(nullable = false)
     private Integer quantity;
+
+    @Setter
+    @Column(nullable = false)
+    private Long sellerId;
 
 
 }

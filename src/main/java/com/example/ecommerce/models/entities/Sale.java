@@ -22,9 +22,6 @@ public class Sale {
     private Long customerId;
 
     @Column(nullable = false)
-    private Long sellerId;
-
-    @Column(nullable = false)
     private LocalDateTime registerAt;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -34,7 +31,6 @@ public class Sale {
     public Sale(SaleDTO dto) {
 
         this.customerId = dto.customerId();
-        this.sellerId = dto.sellerId();
         this.products = dto.products();
         this.registerAt = LocalDateTime.now();
     }

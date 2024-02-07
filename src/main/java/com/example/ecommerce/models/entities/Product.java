@@ -80,4 +80,15 @@ public class Product {
         this.category = dto.category();
         this.quantity = dto.quantity();
     }
+
+    public boolean sufficientQuantity(Integer order) {
+
+        return this.quantity >= order;
+    }
+
+    public void sold(Integer order) {
+
+        this.quantity -= order;
+        this.sales += order;
+    }
 }

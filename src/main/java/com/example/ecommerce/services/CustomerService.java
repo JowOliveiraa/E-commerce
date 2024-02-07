@@ -96,4 +96,5 @@ public class CustomerService {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(new CustomerDAO(customer));
     }
+
 }
