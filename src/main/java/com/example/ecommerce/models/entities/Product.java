@@ -1,6 +1,7 @@
 package com.example.ecommerce.models.entities;
 
 import com.example.ecommerce.models.dtos.ProductDTO;
+import com.example.ecommerce.models.dtos.UpdateProductDTO;
 import com.example.ecommerce.models.enums.Category;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -36,6 +37,9 @@ public class Product {
     private Category category;
 
     @Column(nullable = false)
+    private Integer sales;
+
+    @Column(nullable = false)
     private BigDecimal rating;
 
     @Column(nullable = false)
@@ -55,6 +59,7 @@ public class Product {
         this.quantity = dto.quantity();
         this.price = dto.price();
         this.category = dto.category();
+        this.sales = 0;
         this.rating = BigDecimal.ZERO;
         this.numberOfRatings = 0;
         this.totalRating = 0;
@@ -66,5 +71,13 @@ public class Product {
         this.numberOfRatings += 1;
         this.totalRating += rating;
         this.rating = BigDecimal.valueOf((double) totalRating / numberOfRatings);
+    }
+
+    public void update(UpdateProductDTO dto) {
+
+        this.name = dto.name();
+        this.price = dto.price();
+        this.category = dto.category();
+        this.quantity = dto.quantity();
     }
 }

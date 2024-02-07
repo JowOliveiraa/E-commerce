@@ -47,6 +47,8 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/product/register").hasRole("SELLER")
                         .requestMatchers(HttpMethod.POST, "/product/rating").hasRole("CUSTOMER")
                         .requestMatchers(HttpMethod.GET, "/product/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/product/{id}").hasRole("SELLER")
+                        .requestMatchers(HttpMethod.POST, "/sale").hasRole("CUSTOMER")
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
