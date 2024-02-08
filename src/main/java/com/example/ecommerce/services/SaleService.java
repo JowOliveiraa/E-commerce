@@ -9,9 +9,16 @@ import com.example.ecommerce.repositories.SaleRepository;
 import com.example.ecommerce.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class SaleService {
@@ -79,5 +86,31 @@ public class SaleService {
         repository.save(sale);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new SaleDAO(sale));
+    }
+
+    public ResponseEntity<Object> getById(Long id) {
+
+        if (!repository.existsById(id)) {
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id invalido!");
+        }
+
+        var sale = repository.getReferenceById(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new SaleDAO(sale));
+    }
+
+    public Page<SaleDAO> search(Pageable pageable, Long customer, Long seller, Long product) {
+
+        Page<Sale> pagedSales = null;
+
+        if (Objects.isNull(customer) && Objects.isNull(seller) && Objects.isNull(product)) pagedSales = repository.findAll(pageable);
+        if (!Objects.isNull(customer) && Objects.isNull(seller) && Objects.isNull(product)) pagedSales = repository.findByCustomerId(pageable, customer);
+        if (Objects.isNull(customer) && !Objects.isNull(seller) && Objects.isNull(product)) pagedSales = repository.findBySellerId(pageable, seller);
+        if (Objects.isNull(customer) && Objects.isNull(seller) && !Objects.isNull(product)) pagedSales = repository.findByProductId(pageable, product);
+
+        List<SaleDAO> sales = pagedSales.getContent().stream().map(SaleDAO::new).collect(Collectors.toList());
+
+        return new PageImpl<>(sales, pageable, pagedSales.getTotalElements());
     }
 }

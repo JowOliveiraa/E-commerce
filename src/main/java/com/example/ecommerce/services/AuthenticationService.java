@@ -6,6 +6,7 @@ import com.example.ecommerce.models.dtos.LoginDTO;
 import com.example.ecommerce.models.dtos.RegisterDTO;
 import com.example.ecommerce.models.entities.User;
 import com.example.ecommerce.models.enums.Role;
+import com.example.ecommerce.models.enums.Status;
 import com.example.ecommerce.repositories.UserRepository;
 import com.example.ecommerce.security.TokenService;
 import jakarta.transaction.Transactional;
@@ -71,9 +72,14 @@ public class AuthenticationService implements UserDetailsService {
 
         var token = tokenService.generateToken((User) auth.getPrincipal());
 
-        var user = repository.findByCpf(dto.cpf());
+        User user = (User) repository.findByCpf(dto.cpf());
 
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new LoginDAO((User) user, token));
+        if (user.getStatus() == Status.INACTIVE) {
+
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Usuario inativo!");
+        }
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new LoginDAO(user, token));
     }
 
     public boolean notExists(Long id, String role) {
