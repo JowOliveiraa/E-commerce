@@ -76,7 +76,7 @@ public class ProductController {
             summary = "Buscar ou pesquisar produtos.",
             description = "Busca todos os produtos de forma paginada. É possivel filtrar por nome, categoria, e vendedor de maneira separada ou combinando esses parametros.",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "Ok.", content = @Content(mediaType = "application/json"))
+                    @ApiResponse(responseCode = "200", description = "Ok.")
             }
     )
     @GetMapping
@@ -92,7 +92,7 @@ public class ProductController {
             summary = "Buscar avaliações de um produto.",
             description = "Busca de forma paginada todas as avaliações de um produto pelo id dele.",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "Ok.", content = @Content(mediaType = "application/json")),
+                    @ApiResponse(responseCode = "200", description = "Ok."),
             }
     )
     @GetMapping("/rating/{product}")

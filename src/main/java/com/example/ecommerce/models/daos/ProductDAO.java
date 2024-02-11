@@ -13,6 +13,7 @@ public record ProductDAO(
         Integer quantity,
         BigDecimal price,
         Category category,
+        Integer sales,
         BigDecimal rating,
         Integer numberOfRatings,
         LocalDateTime registerAt
@@ -27,6 +28,7 @@ public record ProductDAO(
                 product.getQuantity(),
                 product.getPrice(),
                 product.getCategory(),
+                product.getSales(),
                 product.getRating(),
                 product.getNumberOfRatings(),
                 product.getRegisterAt()

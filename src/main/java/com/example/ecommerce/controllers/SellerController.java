@@ -70,7 +70,7 @@ public class SellerController {
             summary = "buscar ou pesquisar vendedores.",
             description = "Busca todos os vendedores de forma paginada. O parametro search pesquisa por CPF ou nome, e status pesquisa por ACTIVE ou INACTIVE.",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "Ok.", content = @Content(mediaType = "application/json"))
+                    @ApiResponse(responseCode = "200", description = "Ok.")
             }
     )
     @GetMapping
