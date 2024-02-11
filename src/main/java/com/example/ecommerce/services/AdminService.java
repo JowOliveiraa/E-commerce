@@ -39,7 +39,7 @@ public class AdminService {
 
     public ResponseEntity<Object> login(LoginDTO dto) {
 
-        return authService.login(dto);
+        return authService.login(dto, role);
     }
 
     public ResponseEntity<Object> getById(Long id) {

@@ -63,7 +63,7 @@ public class AuthenticationService implements UserDetailsService {
     }
 
 
-    public ResponseEntity<Object> login(LoginDTO dto) {
+    public ResponseEntity<Object> login(LoginDTO dto, String role) {
 
         authManager = context.getBean(AuthenticationManager.class);
 
@@ -73,6 +73,11 @@ public class AuthenticationService implements UserDetailsService {
         var token = tokenService.generateToken((User) auth.getPrincipal());
 
         User user = (User) repository.findByCpf(dto.cpf());
+
+        if (notExists(user.getId(), role)) {
+
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
 
         if (user.getStatus() == Status.INACTIVE) {
 

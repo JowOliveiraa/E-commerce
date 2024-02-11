@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import static io.swagger.v3.oas.annotations.enums.SecuritySchemeType.HTTP;
 
 @SpringBootApplication
-@OpenAPIDefinition(info = @Info(title = "API E-commerce", version = "1", description = "API que simula um E-commerce"))
+@OpenAPIDefinition(info = @Info(title = "API E-commerce", version = "1.0", description = "API que simula um E-commerce, usando autenticação JWT"))
 @SecurityScheme(name = "token", type = HTTP, in = SecuritySchemeIn.HEADER, scheme = "bearer", bearerFormat = "JWT")
 public class ECommerceApplication {
 

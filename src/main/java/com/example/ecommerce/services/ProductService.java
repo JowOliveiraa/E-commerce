@@ -63,6 +63,11 @@ public class ProductService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id do cliente invalido!");
         }
 
+        if (dto.rating() > 5 || dto.rating() <= 0) {
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("A nota de avaliação deve ser de 1 a 5!");
+        }
+
         var product = repository.getReferenceById(dto.productId());
         product.doRating(dto.rating());
 
