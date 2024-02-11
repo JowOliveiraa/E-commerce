@@ -2,8 +2,8 @@ package com.example.ecommerce.services;
 
 import com.example.ecommerce.models.daos.SaleDAO;
 import com.example.ecommerce.models.dtos.SaleDTO;
+import com.example.ecommerce.models.dtos.SoldProductsDTO;
 import com.example.ecommerce.models.entities.Sale;
-import com.example.ecommerce.models.entities.SoldProducts;
 import com.example.ecommerce.repositories.ProductRepository;
 import com.example.ecommerce.repositories.SaleRepository;
 import com.example.ecommerce.repositories.UserRepository;
@@ -44,7 +44,7 @@ public class SaleService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id do cliente invalido!");
         }
 
-        for (SoldProducts soldProducts : dto.products()) {
+        for (SoldProductsDTO soldProducts : dto.products()) {
 
             Long id = soldProducts.getProductId();
 

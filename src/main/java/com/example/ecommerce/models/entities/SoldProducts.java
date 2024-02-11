@@ -1,5 +1,6 @@
 package com.example.ecommerce.models.entities;
 
+import com.example.ecommerce.models.dtos.SoldProductsDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,4 +27,10 @@ public class SoldProducts {
     private Long sellerId;
 
 
+    public SoldProducts(SoldProductsDTO dto) {
+
+        this.productId = dto.getProductId();
+        this.quantity = dto.getQuantity();
+        this.sellerId = dto.getSellerId();
+    }
 }

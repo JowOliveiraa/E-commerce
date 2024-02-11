@@ -10,6 +10,6 @@ public record SaleDTO(
         @NotBlank
         Long customerId,
         @NotNull
-        List<SoldProducts> products
+        List<SoldProductsDTO> products
 ) {
 }

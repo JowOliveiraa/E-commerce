@@ -1,5 +1,6 @@
 package com.example.ecommerce.models.daos;
 
+import com.example.ecommerce.models.dtos.SoldProductsDTO;
 import com.example.ecommerce.models.entities.SoldProducts;
 
 public record SoldProductsDAO(

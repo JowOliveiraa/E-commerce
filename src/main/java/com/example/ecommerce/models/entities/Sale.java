@@ -1,12 +1,14 @@
 package com.example.ecommerce.models.entities;
 
 import com.example.ecommerce.models.dtos.SaleDTO;
+import com.example.ecommerce.models.dtos.SoldProductsDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
@@ -31,7 +33,7 @@ public class Sale {
     public Sale(SaleDTO dto) {
 
         this.customerId = dto.customerId();
-        this.products = dto.products();
+        this.products = dto.products().stream().map(SoldProducts::new).collect(Collectors.toList());
         this.registerAt = LocalDateTime.now();
     }
 }
