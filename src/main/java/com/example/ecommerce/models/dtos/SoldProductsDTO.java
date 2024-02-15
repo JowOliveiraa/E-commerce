@@ -16,6 +16,4 @@ public class SoldProductsDTO {
     private Long productId;
 
     private Integer quantity;
-
-
 }
